@@ -1,0 +1,48 @@
+{
+  "layer": [
+    {
+      "id": 1,
+      "label": "图层1",
+      "disabled": true,
+      "children": [
+        {
+          "id": 11,
+          "label": "图层11",
+          "children": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "图层2",
+      "disabled": false,
+      "children": [
+        {
+          "id": 22,
+          "label": "图层22",
+          "children": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "图层3",
+      "disabled": false,
+      "children": []
+    },
+    {
+      "id": 4,
+      "label": "图层4",
+      "disabled": false,
+      "children": []
+    },
+    {
+      "id": 5,
+      "label": "图层5",
+      "disabled": false,
+      "children": []
+    }
+  ]
+}
