@@ -1,5 +1,7 @@
 <template>
-  <div class="fx-hmi"></div>
+  <div class="fx-hmi">
+    <cesiumContainer></cesiumContainer>
+  </div>
 </template>
 
 <script setup lang="js">

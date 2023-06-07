@@ -92,7 +92,6 @@ onMounted(() => {
   z-index: 5;
   background: url("../assets/layer/fx-layer_background.png") no-repeat;
   overflow: scroll;
-  box-sizing: border-box;
   &::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
@@ -108,7 +107,7 @@ onMounted(() => {
     /*滚动条里面轨道*/
     box-shadow: inset 0 0 5px rgba(87, 175, 187, 0.1);
     border-radius: 10px;
-    background: #ededed;
+    background: transparent;
   }
   .fx-layer_mod {
     width: 147px;
@@ -118,7 +117,6 @@ onMounted(() => {
     flex-wrap: nowrap;
     align-items: center;
     border-bottom: 1px solid #000;
-    box-sizing: border-box;
     border-image: linear-gradient(270deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) 0.8 0.8;
     .fx-layer_svg {
       margin-top: 15px;

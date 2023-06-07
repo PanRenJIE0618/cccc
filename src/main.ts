@@ -12,17 +12,19 @@ import 'element-plus/theme-chalk/index.css'
 // import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // @ts-ignore
 import dayjs from "dayjs"
+// @ts-ignore
+// const axios = require('axios').default;
 import "./utils/component"
 
 // @ts-ignore
-// var duration = require('dayjs/plugin/duration')
-// dayjs.extend(duration)
 //引入flexible
 import 'amfe-flexible'
+
+import cesiumContainer from './components/cesiumContainer.vue'
 const app = createApp(App)
-// for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-//     app.component(key, component)
-// }
+app.component('cesiumContainer', cesiumContainer)
+
 app.config.globalProperties.$dayjs = dayjs();
+// app.config.globalProperties.$axios = axios();
 app.use(ElementPlus).use(router).mount('#app')
 

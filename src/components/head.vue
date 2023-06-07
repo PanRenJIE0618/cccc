@@ -105,6 +105,8 @@ let mouseMoveOut : () => string = function () :string {
   }
   .fx-head_User {
     img {
+      width: 14px;
+      height: 14px;
       vertical-align: middle;
     }
     .fx-head_User_text {
@@ -114,6 +116,8 @@ let mouseMoveOut : () => string = function () :string {
       margin-right: 42px;
       vertical-align: middle;
       img {
+        width: 9px;
+        height: 7px;
         vertical-align: middle;
       }
     }
@@ -134,7 +138,6 @@ let mouseMoveOut : () => string = function () :string {
         left: 40px;
       }
       .menu {
-        height: 100px;
         p {
           text-align: center;
           font-size: 14px;

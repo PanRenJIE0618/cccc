@@ -20,7 +20,6 @@ import {onMounted, onUnmounted, onUpdated} from "vue";
 
 onMounted(() => {
   console.log("Home 页面创建完成")
-
 })
 onUpdated(() => {
   console.log("Home 页面更新")
