@@ -1,48 +1,97 @@
 <template>
-  <img class="fx-tools-arrow" :class="{'arrowShow':tools,'arrow':!tools}" @click="ExIm" src="../assets/tools/fx-tools_Right_arrow.png" alt="">
+  <img class="fx-tools-arrow" :class="{'arrowShow':tools,'arrow':!tools}" @click="ExIm"
+       src="../assets/tools/fx-tools_Right_arrow.png" alt="">
   <div class="fx-tools" :class="{'fx-tools':tools,'tools':!tools}">
-    <div class="fx-tools_mea" v-for="(item,index) in data" :key="index">
-      <img :src="reimage(item.image)" :class="item.name" alt="">
-    </div>
+    <img v-for="(item,index) in data" :key="index" @click="MeasuringTool(item.name)" :src="reimage(item.image)"
+         :class="item.name" alt="">
   </div>
 </template>
 
 <script setup lang="ts">
-import {reactive,computed,ref} from "vue";
-let reimage = computed<string>(() =>(img:string) => {
-  return new URL(img, import.meta.url).href
-})
-let ExIm : () => string = function () :string {
-  console.log("点击")
-  tools.value = !tools.value
-}
-let tools = ref(true)
+import {reactive, computed, ref} from "vue";
+import Maptools from "../utils/Maptool.cjs";
+
+let MapTool = new Maptools.Maptools();
+console.log(MapTool);
+let reimage = computed<string>(() => (img: string) => {
+  return new URL(img, import.meta.url).href;
+});
+let MeasuringTool: (name: string) => string = function (name: string): string {
+  let viewer = reactive<any>(window.viewer);
+  console.log(name);
+  switch (name) {
+    case "measurement" :
+      console.log("测量");
+      MapTool.measuringdistance(viewer);
+      // let handlerDis = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.Distance, 0);
+      // // 注册测距功能事件
+      // handlerDis.measureEvt.addEventListener(function(result) {
+      //   console.log(result)
+      //   let dis = Number(result.distance);
+      //   let distance = dis > 1000 ? (dis / 1000).toFixed(2) + "km" : dis.toFixed(2) + "m";
+      //   handlerDis.disLabel.text = "距离:" + distance;
+      // });
+      // handlerDis && handlerDis.activate();
+      break;
+    case "translation" :
+      console.log("平移");
+      MapTool.clear(viewer);
+      break;
+    case "area" :
+      console.log("面积");
+      MapTool.measuringArea(viewer);
+      break;
+    case "panorama" :
+      console.log("全景");
+      let position = reactive<object>({
+        longitude: -2873622.352663363,
+        latitude: 4691283.254669421,
+        height: 3294741.82575111
+      });
+      let Directional = reactive<object>({
+        heading: 6.134364052850659,
+        pitch: -1.5678400105732182,
+        roll: 0
+      });
+      MapTool.panorama(viewer, position, Directional);
+      break;
+    case "clear" :
+      console.log("清除结果");
+      MapTool.clear(viewer);
+      break;
+  }
+};
+let ExIm: () => string = function (): string {
+  console.log("点击");
+  tools.value = !tools.value;
+};
+let tools = ref(true);
 let data = reactive<Array<any>>([
   {
-    name:"scale",
-    image:"../assets/tools/fx-tools_scale.png",
+    name: "scale",
+    image: "../assets/tools/fx-tools_scale.png",
   },
   {
-    name:"translation",
-    image:"../assets/tools/fx-tools_translation.png",
+    name: "translation",
+    image: "../assets/tools/fx-tools_translation.png",
   },
   {
-    name:"panorama",
-    image:"../assets/tools/fx-tools_panorama.png",
+    name: "panorama",
+    image: "../assets/tools/fx-tools_panorama.png",
   },
   {
-    name:"measurement",
-    image:"../assets/tools/fx-tools_measurement.png",
+    name: "measurement",
+    image: "../assets/tools/fx-tools_measurement.png",
   },
   {
-    name:"area",
-    image:"../assets/tools/fx-tools_area.png",
+    name: "area",
+    image: "../assets/tools/fx-tools_area.png",
   },
   {
-    name:"clear",
-    image:"../assets/tools/fx-tools_clear.png",
+    name: "clear",
+    image: "../assets/tools/fx-tools_clear.png",
   }
-])
+]);
 </script>
 
 <style scoped lang="less">
@@ -50,6 +99,7 @@ let data = reactive<Array<any>>([
   transition: 1s;
   right: -100px !important;
 }
+
 .arrowShow {
   transition: 1s;
   width: 57px;
@@ -59,11 +109,13 @@ let data = reactive<Array<any>>([
   right: 25px;
   z-index: 2;
 }
+
 .arrow {
   transition: 1s;
   right: -10px !important;
   transform: rotateY(180deg) !important;
 }
+
 .fx-tools-arrow {
   width: 57px;
   height: 72px;
@@ -72,6 +124,7 @@ let data = reactive<Array<any>>([
   right: 25px;
   z-index: 3;
 }
+
 .fx-tools {
   transition: 1s;
   z-index: 2;
@@ -86,33 +139,39 @@ let data = reactive<Array<any>>([
   justify-content: center;
   align-items: center;
   background: url("../assets/tools/fx-tools_background.png") no-repeat;
-  .fx-tools_mea {
-    font-size: 12px;
+
+  img {
     margin: 10px;
-    .scale {
-      width:49px;
-      height:48px
-    }
-    .translation {
-      width:31px;
-      height:30px
-    }
-    .panorama {
-      width:34px;
-      height:33px
-    }
-    .measurement {
-      width:26px;
-      height:30px
-    }
-    .area {
-      width:33px;
-      height:32px
-    }
-    .clear {
-      width:29px;
-      height:28px
-    }
+  }
+
+  .scale {
+    width: 31px;
+    height: 31px
+  }
+
+  .translation {
+    width: 31px;
+    height: 31px
+  }
+
+  .panorama {
+    width: 31px;
+    height: 31px
+  }
+
+  .measurement {
+    width: 31px;
+    height: 31px
+  }
+
+  .area {
+    width: 31px;
+    height: 31px
+  }
+
+  .clear {
+    width: 31px;
+    height: 31px
   }
 }
 </style>

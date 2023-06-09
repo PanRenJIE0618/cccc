@@ -13,7 +13,7 @@
     </div>
     <div class="fx-head_User" @mouseleave="mouseMoveOut">
       <img src="../assets/head/fx-head_User_userimage.png" alt="">
-      <span class="fx-head_User_text" @mouseover="mouseMoveIn" >
+      <span class="fx-head_User_text" @mouseover="mouseMoveIn">
           admin
           <img src="../assets/head/fx-head_User_Down_arrow.png" alt="">
       </span>
@@ -28,28 +28,28 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, computed, reactive, onUnmounted} from 'vue'
-import type { Ref } from 'vue'
-import dayjs from "dayjs"
+import {ref, computed, reactive, onUnmounted} from 'vue';
+import type {Ref} from 'vue';
+import dayjs from "dayjs";
 // defineProps<{ msg: string }>()
 // console.log(dayjs)
-let menu = ref(false)
-let time: Ref<string | number> = ref(dayjs().format("YYYY.MM.DD  HH:mm:ss"))
+let menu = ref(false);
+let time: Ref<string | number> = ref(dayjs().format("YYYY.MM.DD  HH:mm:ss"));
 let Time = setInterval(() => {
-  time.value = dayjs().format("YYYY.MM.DD  HH:mm:ss")
-}, 1000)
+  time.value = dayjs().format("YYYY.MM.DD  HH:mm:ss");
+}, 1000);
 onUnmounted(() => {
-  console.log("head 页面销毁")
-  clearInterval(Time)
-})
-let mouseMoveIn : () => string = function () :string {
+  console.log("head 页面销毁");
+  clearInterval(Time);
+});
+let mouseMoveIn: () => string = function (): string {
   // console.log("鼠标移入")
-  menu.value = true
-}
-let mouseMoveOut : () => string = function () :string {
+  menu.value = true;
+};
+let mouseMoveOut: () => string = function (): string {
   // console.log("鼠标移出")
-  menu.value = false
-}
+  menu.value = false;
+};
 //定义变量
 // const count = ref(0)
 // let year: Ref<string | number> = ref('2020')
@@ -80,8 +80,10 @@ let mouseMoveOut : () => string = function () :string {
   top: 0;
   display: flex;
   justify-content: space-between;
+
   .fx-head_Time_weather {
     display: flex;
+
     .fx-head_Time {
       font-size: 14px;
       color: white;
@@ -89,44 +91,52 @@ let mouseMoveOut : () => string = function () :string {
       line-height: 40px;
       margin-left: 42px;
     }
+
     .fx-head_weather {
       display: flex;
       margin: 0 40px;
+
       p {
         font-size: 14px;
         color: white;
         margin-top: 8px;
         margin-right: 20px;
+
         span {
           color: #9EDAFF;
         }
       }
     }
   }
+
   .fx-head_User {
     img {
       width: 14px;
       height: 14px;
       vertical-align: middle;
     }
+
     .fx-head_User_text {
       color: white;
       font-size: 16px;
       line-height: 40px;
       margin-right: 42px;
       vertical-align: middle;
+
       img {
         width: 9px;
         height: 7px;
         vertical-align: middle;
       }
     }
+
     .fx-head_User_menu {
       width: 100px;
       background: white;
       border-radius: 2px;
       position: fixed;
       top: 36px;
+
       .arrow {
         width: 0;
         height: 0;
@@ -137,16 +147,19 @@ let mouseMoveOut : () => string = function () :string {
         top: -5px;
         left: 40px;
       }
+
       .menu {
         p {
           text-align: center;
           font-size: 14px;
           padding: 5px 0;
-          margin:0;
+          margin: 0;
+
           &:hover {
             background: #ecf5ff;
           }
-          &:first-child{
+
+          &:first-child {
             margin-top: 10px;
           }
         }

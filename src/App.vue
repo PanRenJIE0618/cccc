@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import Head from './components/head.vue'
-
+import Head from './components/head.vue';
 </script>
 
 <template>
