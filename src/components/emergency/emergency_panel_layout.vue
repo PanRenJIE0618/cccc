@@ -19,11 +19,8 @@ const props = defineProps<{
 <template>
   <div class="fx-emergency-plan">
     <div class="fx-emergency-plan-title">
-      <span class="fx-emergency-plan-title-line"></span>
-      <span class="fx-emergency-plan-title-image"></span>
       <span>{{ props.title }}</span>
     </div>
-    <div class="fx-emergency-plan-bottom-line"></div>
     <div class="fx-emergency-plan-content">
       <div class="fx-emergency-plan-search">
         <el-input
@@ -93,32 +90,16 @@ const props = defineProps<{
     display: flex;
     align-items: center;
     height: 31px;
-    background: linear-gradient(270deg, rgba(10, 73, 130, 0) 0%, rgba(9, 63, 112, 0.53) 100%);
     font-size: 16px;
     font-weight: 600;
     line-height: 22px;
+    background-image: url("../../assets/layout/data_info_title_bg.png");
+    padding-left: 40px;
 
     > span {
       margin-right: 12px;
     }
 
-    &-line {
-      width: 2px;
-      height: 18px;
-      background: #379AF4;
-    }
-
-    &-image {
-      width: 16px;
-      height: 16px;
-      border: 1px solid #379AF4;
-    }
-  }
-
-  &-bottom-line {
-    height: 2px;
-    background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(28, 122, 207, 1) 0%, rgba(28, 122, 207, 0) 100%);
   }
 
   &-search {
