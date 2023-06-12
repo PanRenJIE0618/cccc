@@ -53,6 +53,9 @@ let DPEmod: (mod: object) => string = function (mod: object): string {
     case "应急演练":
       store.setCurrentBottomSelected(Emergency_drill);
       break;
+    case "人房管理":
+      store.setCurrentBottomSelected(HHM);
+      break;
   }
   emit('clickChild', selectMod.value);
 };
