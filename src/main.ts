@@ -9,11 +9,7 @@ import router from '../src/router';
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
 // @ts-ignore
-// import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // @ts-ignore
-// @ts-ignore
-// const axios = require('axios').default;
-import "./utils/component";
 import {createPinia} from "pinia";
 
 // @ts-ignore

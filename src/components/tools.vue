@@ -1,48 +1,26 @@
-<template>
-  <img class="fx-tools-arrow" :class="{'arrowShow':tools,'arrow':!tools}" @click="ExIm"
-       src="../assets/tools/fx-tools_Right_arrow.png" alt="">
-  <div class="fx-tools" :class="{'fx-tools':tools,'tools':!tools}">
-    <img v-for="(item,index) in data" :key="index" @click="MeasuringTool(item.name)" :src="reimage(item.image)"
-         :class="item.name" alt="">
-  </div>
-</template>
-
 <script setup lang="ts">
 import {reactive, computed, ref} from "vue";
 import Maptools from "../utils/Maptool.cjs";
 
 let MapTool = new Maptools.Maptools();
-console.log(MapTool);
+
 let reimage = computed<string>(() => (img: string) => {
   return new URL(img, import.meta.url).href;
 });
+
 let MeasuringTool: (name: string) => string = function (name: string): string {
   let viewer = reactive<any>(window.viewer);
-  console.log(name);
   switch (name) {
     case "measurement" :
-      console.log("测量");
       MapTool.measuringdistance(viewer);
-      // let handlerDis = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.Distance, 0);
-      // // 注册测距功能事件
-      // handlerDis.measureEvt.addEventListener(function(result) {
-      //   console.log(result)
-      //   let dis = Number(result.distance);
-      //   let distance = dis > 1000 ? (dis / 1000).toFixed(2) + "km" : dis.toFixed(2) + "m";
-      //   handlerDis.disLabel.text = "距离:" + distance;
-      // });
-      // handlerDis && handlerDis.activate();
       break;
     case "translation" :
-      console.log("平移");
       MapTool.clear(viewer);
       break;
     case "area" :
-      console.log("面积");
       MapTool.measuringArea(viewer);
       break;
     case "panorama" :
-      console.log("全景");
       let position = reactive<object>({
         longitude: -2873622.352663363,
         latitude: 4691283.254669421,
@@ -56,16 +34,18 @@ let MeasuringTool: (name: string) => string = function (name: string): string {
       MapTool.panorama(viewer, position, Directional);
       break;
     case "clear" :
-      console.log("清除结果");
       MapTool.clear(viewer);
       break;
   }
 };
+
 let ExIm: () => string = function (): string {
   console.log("点击");
   tools.value = !tools.value;
 };
+
 let tools = ref(true);
+
 let data = reactive<Array<any>>([
   {
     name: "scale",
@@ -93,6 +73,16 @@ let data = reactive<Array<any>>([
   }
 ]);
 </script>
+
+<template>
+  <img class="fx-tools-arrow" :class="{'arrowShow':tools,'arrow':!tools}" @click="ExIm"
+       src="../assets/tools/fx-tools_Right_arrow.png" alt="">
+  <div class="fx-tools" :class="{'fx-tools':tools,'tools':!tools}">
+    <img v-for="(item,index) in data" :key="index" @click="MeasuringTool(item.name)" :src="reimage(item.image)"
+         :class="item.name" alt="">
+  </div>
+</template>
+
 
 <style scoped lang="less">
 .tools {

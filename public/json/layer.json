@@ -2,25 +2,36 @@
   "layer": [
     {
       "id": 1,
-      "label": "图层1",
+      "label": "时刻基础数据",
       "disabled": true,
       "children": [
         {
           "id": 11,
-          "label": "图层11",
+          "label": "行政区",
           "children": [
-          ]
+            {
+              "id": 111,
+              "label": "市级行政区",
+              "disabled": false
+            },
+            {
+              "id": 112,
+              "label": "县级行政区",
+              "disabled": false
+            }
+          ],
+          "disabled": false
         }
       ]
     },
     {
       "id": 2,
-      "label": "图层2",
+      "label": "资源调查数据",
       "disabled": false,
       "children": [
         {
           "id": 22,
-          "label": "图层22",
+          "label": "影像图",
           "children": [
           ]
         }
@@ -28,19 +39,43 @@
     },
     {
       "id": 3,
-      "label": "图层3",
+      "label": "规划管控数据",
       "disabled": false,
       "children": []
     },
     {
       "id": 4,
-      "label": "图层4",
+      "label": "公共专题数据",
       "disabled": false,
       "children": []
     },
     {
       "id": 5,
-      "label": "图层5",
+      "label": "物联感知数据",
+      "disabled": false,
+      "children": []
+    },
+    {
+      "id": 6,
+      "label": "部门专题数据",
+      "disabled": false,
+      "children": []
+    },
+    {
+      "id": 7,
+      "label": "区级城运体征数据",
+      "disabled": false,
+      "children": []
+    },
+    {
+      "id": 8,
+      "label": "城市地下空间数据",
+      "disabled": false,
+      "children": []
+    },
+    {
+      "id": 8,
+      "label": "社会POI数据",
       "disabled": false,
       "children": []
     }

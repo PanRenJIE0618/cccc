@@ -1,47 +1,3 @@
-<template>
-  <div class="fx-HHM">
-    <div class="fx-HHM_Table">
-      <div class="fx-HHM_Table_title">楼栋信息</div>
-      <div class="fx-HHM_Table_content">
-        <div class="fx-HHM_Table_content_head">
-          <p>
-            <img src="../assets/HHM/fx-HHM_Table_content_head_icon.png" alt="">
-            <span>奉贤区服务大楼</span>
-          </p>
-          <p>
-            地址：上海市奉贤区xx街道奉贤服务大楼
-          </p>
-        </div>
-        <div class="fx-HHM_Table_content_table">
-          <div class="fx-HHM_Table_content_table_floor" v-for="(item,index) in building" :key="index">
-            <div class="floor">{{ item.floor }}层</div>
-            <div class="fx-HHM_Table_content_table_rooms">
-              <div class="room" v-for="(room,i) in item.rooms" :key="i" @click="toPop(room)">{{ room.room }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="fx-HHM_SumData">
-      <div class="fx-HHM_SumData_data">
-        <div class="fx-HHM_SumData_data_d" v-for="(item,index) in SunData" :key="index">
-          <img :src="item.img" :alt="item.name">
-          <p class="fx-HHM_SumData_data_v">
-            <span class="fx-HHM_SumData_data_t">{{ item.name }}</span>
-            <span :class="{'ftsz':item.name === '开发商'}" class="fx-HHM_SumData_data_vl">{{ item.value }}<span
-              class="fx-HHM_SumData_data_un">{{ unit(item.name) }}</span></span>
-          </p>
-        </div>
-      </div>
-      <div class="fx-HHM_SumData_img">
-        <img src="../assets/HHM/fx-HHM_SumData_img.png" alt="">
-        <p>卓越世纪中心小区</p>
-      </div>
-    </div>
-    <HHMpOP :familyData="familyData"></HHMpOP>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import {computed, reactive} from "vue";
 import HHMpOP from './HHM_POP.vue';
@@ -56,10 +12,11 @@ let familyData = reactive<object>({
   title: "奉贤区服务大楼1栋",
   room: 101
 });
-console.log(familyData);
+
 let toPop: (item: object) => string = function (item: object): string {
   familyData.room = item.room;
 };
+
 let unit = computed<string>(() => (name: string) => {
   let unitText = "";
   switch (name) {
@@ -78,6 +35,7 @@ let unit = computed<string>(() => (name: string) => {
   }
   return unitText;
 });
+
 let SunData = reactive<Sum>([
   {
     name: "面积",
@@ -146,8 +104,54 @@ const createData = (
       };
     });
 };
+
 let building = reactive<Array>(createData(2, 7, 7));
 </script>
+
+<template>
+  <div class="fx-HHM">
+    <div class="fx-HHM_Table">
+      <div class="fx-HHM_Table_title">楼栋信息</div>
+      <div class="fx-HHM_Table_content">
+        <div class="fx-HHM_Table_content_head">
+          <p>
+            <img src="../assets/HHM/fx-HHM_Table_content_head_icon.png" alt="">
+            <span>奉贤区服务大楼</span>
+          </p>
+          <p>
+            地址：上海市奉贤区xx街道奉贤服务大楼
+          </p>
+        </div>
+        <div class="fx-HHM_Table_content_table">
+          <div class="fx-HHM_Table_content_table_floor" v-for="(item,index) in building" :key="index">
+            <div class="floor">{{ item.floor }}层</div>
+            <div class="fx-HHM_Table_content_table_rooms">
+              <div class="room" v-for="(room,i) in item.rooms" :key="i" @click="toPop(room)">{{ room.room }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fx-HHM_SumData">
+      <div class="fx-HHM_SumData_data">
+        <div class="fx-HHM_SumData_data_d" v-for="(item,index) in SunData" :key="index">
+          <img :src="item.img" :alt="item.name">
+          <p class="fx-HHM_SumData_data_v">
+            <span class="fx-HHM_SumData_data_t">{{ item.name }}</span>
+            <span :class="{'ftsz':item.name === '开发商'}" class="fx-HHM_SumData_data_vl">{{ item.value }}<span
+              class="fx-HHM_SumData_data_un">{{ unit(item.name) }}</span></span>
+          </p>
+        </div>
+      </div>
+      <div class="fx-HHM_SumData_img">
+        <img src="../assets/HHM/fx-HHM_SumData_img.png" alt="">
+        <p>卓越世纪中心小区</p>
+      </div>
+    </div>
+    <HHMpOP :familyData="familyData"></HHMpOP>
+  </div>
+</template>
+
 
 <style scoped lang="less">
 .ftsz {
@@ -158,7 +162,7 @@ let building = reactive<Array>(createData(2, 7, 7));
   position: fixed;
   z-index: 5;
 
-  .fx-HHM_Table {
+  &_Table {
     width: 353px;
     height: 818px;
     background: url("../assets/HHM/fx-HHM_background.png") no-repeat;
@@ -166,7 +170,7 @@ let building = reactive<Array>(createData(2, 7, 7));
     bottom: 85px;
     left: 30px;
 
-    .fx-HHM_Table_title {
+    &_title {
       width: 353px;
       height: 32px;
       background: url("../assets/HHM/fx-HHM_head_background.png") no-repeat;
@@ -176,14 +180,14 @@ let building = reactive<Array>(createData(2, 7, 7));
       line-height: 32px;
     }
 
-    .fx-HHM_Table_content {
+    &_content {
       display: flex;
       justify-content: center;
       flex-direction: row;
       flex-wrap: wrap;
       margin-top: 13px;
 
-      .fx-HHM_Table_content_head {
+      &_head {
         width: 323px;
         height: 84px;
         background: url("../assets/HHM/fx-HHM_Table_content_head_background.png") no-repeat;
@@ -215,7 +219,7 @@ let building = reactive<Array>(createData(2, 7, 7));
         }
       }
 
-      .fx-HHM_Table_content_table {
+      &_table {
         height: 650px;
         overflow: scroll;
         margin-top: 10px;
@@ -226,7 +230,7 @@ let building = reactive<Array>(createData(2, 7, 7));
           height: 0;
         }
 
-        .fx-HHM_Table_content_table_floor {
+        &_floor {
           width: 323px;
           height: 92px;
           margin: 15px;
@@ -286,11 +290,11 @@ let building = reactive<Array>(createData(2, 7, 7));
     bottom: 86px;
     background: url("../assets/HHM/fx-HHM_SumData_background.png") no-repeat;
 
-    .fx-HHM_SumData_data {
+    &_data {
       width: 100%;
       height: 395px;
 
-      .fx-HHM_SumData_data_d {
+      &_d {
         height: 80px;
         display: flex;
         align-items: center;
@@ -328,7 +332,7 @@ let building = reactive<Array>(createData(2, 7, 7));
       }
     }
 
-    .fx-HHM_SumData_img {
+    &_img {
       position: relative;
       display: flex;
       justify-content: center;

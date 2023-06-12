@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import {reactive, ref, onMounted, nextTick} from "vue";
-import {getPositiondirection} from "../utils/component";
+import { getPositiondirection } from "../utils/CommonTool.js";
 import {ElMessage} from 'element-plus';
 
 let start: number = ref(0);

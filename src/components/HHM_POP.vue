@@ -1,38 +1,3 @@
-<template>
-  <div class="fx-HHM_TableData">
-    <div class="fx-HHM_TableData_head">
-      <span>{{ Data.title }}</span>
-      <span>{{ Data.room }}</span>
-    </div>
-    <img class="fx-HHM_TableData_close" src="../assets/HHM/fx-HHM_TableData_close.png" alt="">
-    <div class="fx-HHM_TableData_select">
-      <span :class="{'select':active === index}" v-for="(item,index) in modFa" :key="index"
-            @click="selectFa(index)">{{ item.name }}</span>
-    </div>
-    <div class="fx-HHM_TableData_content">
-      <div class="fx-HHM_TableData_content_list">
-        <div class="fx-HHM_TableData_content_column" v-for="(item,index) in list.house" :key="index">
-          <p class="listTitle">{{ item.name }}</p>
-          <p class="listValue">{{ item.value }}</p>
-        </div>
-        <div class="fx-HHM_TableData_content_column" v-for="(item,index) in list.family" :key="index">
-          <p class="listTitle">{{ item.name }}</p>
-          <p class="listValue">{{ item.value }}</p>
-          <div class="fx-HHM_TableData_content_column2">
-            <p class="listTitle">{{ item.name2 }}</p>
-            <p class="listValue2">{{ item.value2 }}</p>
-          </div>
-        </div>
-        <div class="fx-HHM_TableData_content_column" v-for="(item,index) in list.OldMan" :key="index">
-          <p class="listTitle">{{ item.name }}</p>
-          <p class="listValue">{{ item.value }}</p>
-        </div>
-      </div>
-      <div class="fx-HHM_TableData_content_table"></div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import {ref, defineProps, watch, withDefaults, reactive} from 'vue';
 
@@ -92,36 +57,72 @@ let modFa = reactive<Array>([
     name: "人员信息"
   }
 ]);
+let Data = reactive<Da>({
+  title: "奉贤区服务大楼1栋",
+  room: 101
+});
+let active = ref(0);
 
 interface Da {
   title: string;
   room: number;
 }
 
-let active = ref(0);
-let selectFa: (i: number) => string = function (i: number): string {
-  active.value = i;
-};
-let Data = reactive<Da>({
-  title: "奉贤区服务大楼1栋",
-  room: 101
-});
-
 interface PropsType {
   familyData: object;
 }
 
+let selectFa: (i: number) => string = function (i: number): string {
+  active.value = i;
+};
+
 const props = withDefaults(defineProps<PropsType>(), {
   familyData: {} // 默认值
 });
+
 watch(() => props.familyData, (newVal) => {
-  console.log(newVal);
   Data.title = newVal.title;
   Data.room = newVal.room;
 }, {
   deep: true
 });
+
 </script>
+
+<template>
+  <div class="fx-HHM_TableData">
+    <div class="fx-HHM_TableData_head">
+      <span>{{ Data.title }}</span>
+      <span>{{ Data.room }}</span>
+    </div>
+    <img class="fx-HHM_TableData_close" src="../assets/HHM/fx-HHM_TableData_close.png" alt="">
+    <div class="fx-HHM_TableData_select">
+      <span :class="{'select':active === index}" v-for="(item,index) in modFa" :key="index"
+            @click="selectFa(index)">{{ item.name }}</span>
+    </div>
+    <div class="fx-HHM_TableData_content">
+      <div class="fx-HHM_TableData_content_list">
+        <div class="fx-HHM_TableData_content_column" v-for="(item,index) in list.house" :key="index">
+          <p class="listTitle">{{ item.name }}</p>
+          <p class="listValue">{{ item.value }}</p>
+        </div>
+        <div class="fx-HHM_TableData_content_column" v-for="(item,index) in list.family" :key="index">
+          <p class="listTitle">{{ item.name }}</p>
+          <p class="listValue">{{ item.value }}</p>
+          <div class="fx-HHM_TableData_content_column2">
+            <p class="listTitle">{{ item.name2 }}</p>
+            <p class="listValue2">{{ item.value2 }}</p>
+          </div>
+        </div>
+        <div class="fx-HHM_TableData_content_column" v-for="(item,index) in list.OldMan" :key="index">
+          <p class="listTitle">{{ item.name }}</p>
+          <p class="listValue">{{ item.value }}</p>
+        </div>
+      </div>
+      <div class="fx-HHM_TableData_content_table"></div>
+    </div>
+  </div>
+</template>
 
 <style scoped lang="less">
 .select {

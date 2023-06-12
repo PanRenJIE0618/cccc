@@ -1,17 +1,18 @@
 <template>
-  <div class="fx-layer_tree">
-    <!--    <el-tree-v2 :data="data" :props="props" show-checkbox :height="400" :indent="16" />-->
-    <div class="fx-layer_mod" v-for="(item,index) in mods" :key="index" @click="HandleListClick(index)"
-         :class="{'selectMod':index == ModIndex}">
+  <div class="fx-layer">
+    <div class="fx-layer_mod" v-for="(item,index) in mods" :key="index" @click="HandleListClick(item.name,index)"
+         :class="{'selectMod':index === ModIndex}">
       <img class="fx-layer_svg" :src="item.svg" alt="">
       <p>{{ item.name }}</p>
     </div>
   </div>
+  <TreeBox v-if="Box" :list="list" @clickClose="clickEven"></TreeBox>
 </template>
 
 <script setup lang="ts">
 import {onMounted, reactive, ref} from "vue";
-import layer from '../../public/json/layer.json';
+import TreeBox from "./layout/tree.vue"
+import layer from "../../public/json/layer.json"
 import basic_data from '../icons/svg/fx-icon_basic_data.svg?url';
 import iot from '../icons/svg/fx-icon_iot.svg?url';
 import planning from '../icons/svg/fx-icon_planning.svg?url';
@@ -22,6 +23,9 @@ import Special_topic from '../icons/svg/fx-icon_Special_topic.svg?url';
 import underground from '../icons/svg/fx-icon_underground.svg?url';
 import Urban_construction from '../icons/svg/fx-icon_Urban_construction.svg?url';
 
+let data = reactive<Array<any>>(layer.layer);
+let list = reactive<object>(null)
+let Box = ref(false)
 const mods = reactive<Array<any>>([
   {
     name: "时刻基础数据",
@@ -60,21 +64,21 @@ const mods = reactive<Array<any>>([
     svg: Urban_construction
   },
 ]);
-const props = {
-  value: 'id',
-  label: 'label',
-  children: 'children',
-  disabled: 'disabled',
+
+const clickEven = (val: boolean) => {
+  Box.value = val
 };
-let data = reactive<Array<any>>(layer.layer);
+
 let ModIndex = ref<number>(10);
-let HandleListClick: () => any = function (index: number): any {
+let HandleListClick: (name:string,index: number) => any = function (name:string,index: number): any {
   if (ModIndex.value == index) {
     ModIndex.value = 10;
+    Box.value = false
     return;
   }
   ModIndex.value = index;
-  console.log(ModIndex.value);
+  Box.value = true
+  list = reactive<object>(data.filter((i) => i.label === name)[0])
 };
 onMounted(() => {
   console.log("Tree 组件创建成功");
@@ -86,7 +90,7 @@ onMounted(() => {
   background: linear-gradient(160deg, #26CFFD 0%, #1D6CD7 100%);
 }
 
-.fx-layer_tree {
+.fx-layer {
   width: 152px;
   height: 892px;
   position: absolute;

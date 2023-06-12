@@ -22,7 +22,7 @@ instance.interceptors.response.use((response: any) => {
     return response;
   }
   // 其他错误情况
-  ElMessage.error(response.data.msg || '请求失败，请稍后重试');
+  ElMessage.error(response.data.msg || '请求失败');
   return Promise.reject(response.data);
 }, (error: any) => {
   return Promise.reject(error);
