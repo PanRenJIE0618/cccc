@@ -14,6 +14,7 @@ import 'element-plus/theme-chalk/index.css';
 // @ts-ignore
 // const axios = require('axios').default;
 import "./utils/component";
+import {createPinia} from "pinia";
 
 // @ts-ignore
 //引入flexible
@@ -24,5 +25,5 @@ import cesiumContainer from './components/cesiumContainer.vue';
 const app = createApp(App);
 app.component('cesiumContainer', cesiumContainer);
 // app.config.globalProperties.$axios = axios();
-app.use(ElementPlus).use(router).mount('#app');
+app.use(createPinia()).use(ElementPlus).use(router).mount('#app');
 
