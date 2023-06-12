@@ -4,7 +4,7 @@
 <template>
   <data_info_layout>
     <template v-slot:title>
-      数据分析
+      基础信息
     </template>
     <template v-slot:content>
       内容

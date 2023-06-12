@@ -1,5 +1,6 @@
 <template>
   <div class="fx-home">
+    <component :is="store.currentBottomSelected"/>
     <HMI></HMI>
     <LayerTree v-if="SelectMod === ''"></LayerTree>
     <Tools v-if="SelectMod === ''"></Tools>
@@ -17,11 +18,15 @@ import LayerTree from '../../components/layer_tree.vue';
 import Tools from '../../components/tools.vue';
 import ViewPoint from '../../components/viewpoint.vue';
 import {ref, onMounted, onUnmounted, onUpdated} from "vue";
+import {useStore} from "../../store";
+
+const store = useStore();
 
 let SelectMod = ref("");
 const clickEven = (val: string) => {
   if (SelectMod.value === val) {
     SelectMod.value = "";
+    store.setCurrentBottomSelected('');
     return;
   }
   SelectMod.value = val;

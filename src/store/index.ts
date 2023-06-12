@@ -1,22 +1,28 @@
 import {defineStore} from "pinia";
 
 type RootState = {
-  currentEmergencyPanel: Object | string
+  currentEmergencyPanel: Object | string,
+  currentBottomSelected: Object | string,
 }
 
 type RootActions = {
-  setCurrentTab: (panel: RootState["currentEmergencyPanel"]) => void
+  setCurrentEmergencyPanel: (panel: RootState["currentEmergencyPanel"]) => void,
+  setCurrentBottomSelected: (panel: RootState["currentBottomSelected"]) => void,
 }
 
 export const useStore = defineStore<string, RootState, {}, RootActions>('main', {
   state: () => {
     return {
       currentEmergencyPanel: '',
+      currentBottomSelected: ''
     };
   },
   actions: {
-    setCurrentTab(panel) {
+    setCurrentEmergencyPanel(panel) {
       this.currentEmergencyPanel = panel;
+    },
+    setCurrentBottomSelected(panel) {
+      this.currentBottomSelected = panel;
     },
   }
 });

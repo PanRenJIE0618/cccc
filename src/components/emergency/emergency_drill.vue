@@ -20,17 +20,17 @@ const emergencyActionList = ref<Array<EmergencyAction>>([
 ]);
 
 const currentAction = ref<EmergencyAction>({
-  name: '应急预案'
+  name: ''
 });
 
 const handleClickAction = (item) => {
   currentAction.value = item;
   switch (item.name) {
     case '应急预案':
-      store.setCurrentTab(Emergency_plan_list);
+      store.setCurrentEmergencyPanel(Emergency_plan_list);
       break;
     case '消防设施':
-      store.setCurrentTab(Fire_facilities_list);
+      store.setCurrentEmergencyPanel(Fire_facilities_list);
       break;
   }
 };

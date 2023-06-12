@@ -22,6 +22,9 @@ const clickChild = () => {
   //传递给父组件
 };
 import type {Ref} from "vue";
+import {useStore} from "../store";
+import Data_analysis from "./data_analysis/data_analysis.vue";
+import Emergency_drill from "./emergency/emergency_drill.vue";
 
 let selectMod = ref("");
 let mod = reactive<Array<object>>([
@@ -38,10 +41,20 @@ let mod = reactive<Array<object>>([
     image: new URL("../assets/bottom/fx-bottom_Emergency_drill.png", import.meta.url).href
   }
 ]);
+
+const store = useStore();
+
 let DPEmod: (mod: object) => string = function (mod: object): string {
   selectMod.value = mod.title;
+  switch (mod.title) {
+    case "数据分析":
+      store.setCurrentBottomSelected(Data_analysis);
+      break;
+    case "应急演练":
+      store.setCurrentBottomSelected(Emergency_drill);
+      break;
+  }
   emit('clickChild', selectMod.value);
-
 };
 defineExpose({selectMod});
 console.log(mod);
