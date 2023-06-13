@@ -1,5 +1,9 @@
 <script lang="ts" setup> import Data_info_layout from "../layout/data_info_layout.vue";
 import Data_analysis_item from "./data_analysis_item.vue";
+import {ref} from "vue";
+
+const malePercent = ref(21);
+const femalePercent = ref(100 - malePercent.value);
 </script>
 
 <template>
@@ -23,8 +27,8 @@ import Data_analysis_item from "./data_analysis_item.vue";
           <div class="percent">
             <img src="../../assets/data-analysis/male.png" alt="">
             <div class="progress">
-              <div class="male"></div>
-              <div class="female"></div>
+              <div class="male" :style="{width: malePercent+'%'}">{{ malePercent }}%</div>
+              <div class="female" :style="{width: femalePercent+'%'}">{{ femalePercent }}%</div>
             </div>
             <img src="../../assets/data-analysis/female.png" alt="">
           </div>
@@ -142,19 +146,22 @@ import Data_analysis_item from "./data_analysis_item.vue";
     display: flex;
 
     > .male {
-      width: 170px;
       height: 20px;
       background: rgba(51, 245, 255, 1);
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
+      color: rgba(15, 100, 105, 1);
+      padding-left: 6px;
     }
 
     .female {
-      width: 130px;
+      color: rgba(68, 15, 49, 1);
       height: 20px;
       background: rgba(255, 183, 229, 1);
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
+      text-align: right;
+      padding-right: 6px;
     }
   }
 }
