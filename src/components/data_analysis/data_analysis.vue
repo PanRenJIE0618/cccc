@@ -22,7 +22,10 @@ import Data_analysis_item from "./data_analysis_item.vue";
           </div>
           <div class="percent">
             <img src="../../assets/data-analysis/male.png" alt="">
-            <div class="progress"></div>
+            <div class="progress">
+              <div class="male"></div>
+              <div class="female"></div>
+            </div>
             <img src="../../assets/data-analysis/female.png" alt="">
           </div>
           <div class="identity">
@@ -134,9 +137,25 @@ import Data_analysis_item from "./data_analysis_item.vue";
   justify-content: space-between;
 
   > .progress {
-    border: 1px solid red;
-    width: 200px;
+    width: 300px;
     height: 20px;
+    display: flex;
+
+    > .male {
+      width: 170px;
+      height: 20px;
+      background: rgba(51, 245, 255, 1);
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    .female {
+      width: 130px;
+      height: 20px;
+      background: rgba(255, 183, 229, 1);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
   }
 }
 
