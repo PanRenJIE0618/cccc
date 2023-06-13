@@ -12,7 +12,6 @@
 
 <script lang="ts" setup>
 import {reactive, ref, defineExpose, computed, defineEmits} from "vue";
-import HHM from "./HHM.vue";
 
 const emit = defineEmits(['clickChild']);
 const clickChild = () => {
@@ -25,6 +24,7 @@ import type {Ref} from "vue";
 import {useStore} from "../store";
 import Data_analysis from "./data_analysis/data_analysis.vue";
 import Emergency_drill from "./emergency/emergency_drill.vue";
+import HHM from "./HHM.vue";
 
 let active = {
   Data: "fx-bottom_Data_analysis",
@@ -64,11 +64,11 @@ let mod = reactive<Array<object>>([
 const store = useStore();
 
 let DPEmod: (mod: object) => string = function (mod: object): string {
-  if(selectMod.value === mod.title) {
-    selectMod.value = ""
+  if (selectMod.value === mod.title) {
+    selectMod.value = "";
     emit('clickChild', selectMod.value);
     store.setCurrentBottomSelected();
-    return
+    return;
   }
   selectMod.value = mod.title;
   switch (mod.title) {

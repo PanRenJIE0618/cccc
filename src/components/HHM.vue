@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, reactive} from "vue";
+import {computed, reactive, ref} from "vue";
 import HHMpOP from './HHM_POP.vue';
 
 interface Sum {
@@ -8,13 +8,21 @@ interface Sum {
   value: any;
 }
 
-let familyData = reactive<object>({
+interface LC {
+  id: string;
+  title: string;
+  room: number;
+}
+
+let familyData = reactive<LC>({
   title: "奉贤区服务大楼1栋",
-  room: 101
+  room: null
 });
 
 let toPop: (item: object) => string = function (item: object): string {
   familyData.room = item.room;
+  console.log(item);
+  Box.value = true;
 };
 
 let unit = computed<string>(() => (name: string) => {
@@ -106,6 +114,12 @@ const createData = (
 };
 
 let building = reactive<Array>(createData(2, 7, 7));
+
+let Box = ref(false);
+const clickEven = (val: boolean) => {
+  Box.value = val;
+};
+
 </script>
 
 <template>
@@ -126,7 +140,9 @@ let building = reactive<Array>(createData(2, 7, 7));
           <div class="fx-HHM_Table_content_table_floor" v-for="(item,index) in building" :key="index">
             <div class="floor">{{ item.floor }}层</div>
             <div class="fx-HHM_Table_content_table_rooms">
-              <div class="room" v-for="(room,i) in item.rooms" :key="i" @click="toPop(room)">{{ room.room }}</div>
+              <div class="room" :class="{'room_select':familyData.room === room.room,'room_err':room.room === 102}" v-for="(room,i) in item.rooms"
+                   :key="i" @click="toPop(room)">{{ room.room }}
+              </div>
             </div>
           </div>
         </div>
@@ -148,7 +164,7 @@ let building = reactive<Array>(createData(2, 7, 7));
         <p>卓越世纪中心小区</p>
       </div>
     </div>
-    <HHMpOP :familyData="familyData"></HHMpOP>
+    <HHMpOP :familyData="familyData" @clickClose="clickEven" v-if="Box"></HHMpOP>
   </div>
 </template>
 
@@ -156,6 +172,17 @@ let building = reactive<Array>(createData(2, 7, 7));
 <style scoped lang="less">
 .ftsz {
   font-size: 16px !important;
+}
+
+.room_select {
+  background-color: rgba(249, 149, 34, 0.79) !important;
+  border: 1px solid rgba(255, 144, 55, 1) !important;
+  box-shadow: inset 2px 2px 11px 1px rgba(255, 255, 255, 0.5) !important;
+}
+.room_err {
+  background-color: rgba(14, 160, 163,0.51) !important;
+  border: 1px solid rgba(117, 252, 255,0.59) !important;
+  box-shadow: inset 2px 2px 11px 1px rgba(49, 252, 181, 0.41) !important;
 }
 
 .fx-HHM {
