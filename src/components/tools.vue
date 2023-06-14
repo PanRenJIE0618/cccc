@@ -10,33 +10,17 @@ let reimage = computed<string>(() => (img: string) => {
 
 let MeasuringTool: (name: string) => string = function (name: string): string {
   let viewer = reactive<any>(window.viewer);
-  switch (name) {
-    case "measurement" :
-      MapTool.measuringdistance(viewer);
-      break;
-    case "translation" :
-      MapTool.clear(viewer);
-      break;
-    case "area" :
-      MapTool.measuringArea(viewer);
-      break;
-    case "panorama" :
-      let position = reactive<object>({
-        longitude: -2873622.352663363,
-        latitude: 4691283.254669421,
-        height: 3294741.82575111
-      });
-      let Directional = reactive<object>({
-        heading: 6.134364052850659,
-        pitch: -1.5678400105732182,
-        roll: 0
-      });
-      MapTool.panorama(viewer, position, Directional);
-      break;
-    case "clear" :
-      MapTool.clear(viewer);
-      break;
-  }
+  let position = reactive<object>({
+    longitude: -2873622.352663363,
+    latitude: 4691283.254669421,
+    height: 3294741.82575111
+  });
+  let Directional = reactive<object>({
+    heading: 6.134364052850659,
+    pitch: -1.5678400105732182,
+    roll: 0
+  });
+  MapTool[name]?.(viewer,position,Directional)
 };
 
 let ExIm: () => string = function (): string {
@@ -52,7 +36,7 @@ let data = reactive<Array<any>>([
     image: "../assets/tools/fx-tools_scale.png",
   },
   {
-    name: "translation",
+    name: "clear",
     image: "../assets/tools/fx-tools_translation.png",
   },
   {
@@ -60,11 +44,11 @@ let data = reactive<Array<any>>([
     image: "../assets/tools/fx-tools_panorama.png",
   },
   {
-    name: "measurement",
+    name: "measuringdistance",
     image: "../assets/tools/fx-tools_measurement.png",
   },
   {
-    name: "area",
+    name: "measuringArea",
     image: "../assets/tools/fx-tools_area.png",
   },
   {

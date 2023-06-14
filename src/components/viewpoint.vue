@@ -105,7 +105,7 @@ let edit: (cp: object) => string = function (cp: object): string {
   console.log(cp);
   let promise = viewer.scene.outputSceneToFile();
   Cesium.when(promise, (imgUrl) => {
-    let position = getPositiondirection();
+    let position = getPositiondirection(viewer);
     ElMessage({
       message: '编辑视点成功',
       type: 'success',
@@ -163,7 +163,7 @@ let addViewPoint: () => string = function (): string {
   let promise = viewer.scene.outputSceneToFile();
   Cesium.when(promise, (imgUrl) => {
     // console.log("点击")
-    let position = getPositiondirection();
+    let position = getPositiondirection(viewer);
     // console.log(position)
     ElMessage({
       message: '新增视点成功',

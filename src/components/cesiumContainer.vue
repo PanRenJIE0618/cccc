@@ -1,23 +1,41 @@
 <script lang="ts" setup>
 import {onMounted} from "vue";
-import {get3Ddata} from "../api/iServer";
+import {get3Ddata, get3Dblock} from "../api/iServer";
+
 
 onMounted(() => {
   console.log("Cesium 页面创建完成");
   let viewer = new Cesium.Viewer('cesiumContainer', {
     infoBox: false,
     timeline: false,
-    navigation:false
+    navigation: false
   });
+  //设置时间光照受时间影响。
+  viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date("2023/06/14 14:00:00"));
   window.viewer = viewer;
   viewer._cesiumWidget._creditContainer.style.display = "none";
-  get3Ddata().then((res: any) => {
-    res.forEach((item:object) => {
+  get3Dblock().then((res: any) => {
+    res.forEach((item: object) => {
       let promise = viewer.scene.addS3MTilesLayerByScp(item.path + "/config", {name: item.name});
       promise.then(function (layer: any) {
-        // console.log(layer)
         layer.visible = true;
-      })
+        //是否允许选中子集
+        layer.skeletonSelectEnable = true;
+        //选中色
+        // layer.selectedColor = Cesium.Color.RED;
+        //设置图层是否受光照影响
+        layer.hasLight = true;
+      });
+    });
+  });
+  get3Ddata().then((res: any) => {
+    res.forEach((item: object) => {
+      let promise = viewer.scene.addS3MTilesLayerByScp(item.path + "/config", {name: item.name});
+      promise.then(function (layer: any) {
+        layer.visible = true;
+        layer.skeletonSelectEnable = true;
+        layer.selectedColor = Cesium.Color.RED;
+      });
     });
     //设置默认视角
     viewer.camera.setView({

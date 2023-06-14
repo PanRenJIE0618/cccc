@@ -9,19 +9,19 @@ let list = reactive<Array>({
     },
     {
       name: "地址详情",
-      value: "上海市奉贤区xx街道奉贤服务大楼"
+      value: "上海市奉贤区奉贤南桥百通路88弄4号"
     },
     {
       name: "居住房屋类型",
-      value: "其他"
+      value: "住宅"
     }
   ],
   family: [
     {
       name: "房主姓名",
-      value: "张三",
+      value: "金桐羽",
       name2: "房主身份证号",
-      value2: 321322889982828280
+      value2: "310120201604**2610"
     },
     {
       name: "房主联系电话",
@@ -45,7 +45,7 @@ let list = reactive<Array>({
   OldMan: [
     {
       name: "居住60岁以上老人",
-      value: 2
+      value: 0
     }
   ]
 });

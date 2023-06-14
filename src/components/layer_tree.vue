@@ -82,6 +82,7 @@ let HandleListClick: (name:string,index: number) => any = function (name:string,
 };
 onMounted(() => {
   console.log("Tree 组件创建成功");
+  viewer.entities.removeAll()
 });
 </script>
 

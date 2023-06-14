@@ -40,64 +40,28 @@ let tableTitle = reactive<Array>([
 ]);
 let tableData = reactive<Array>([
   {
-    name: "张三",
-    sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
+    name: "金桐羽",
+    sex: "男",
+    age: "**",
+    IDNumber: "310120201604**2610",
     type: "户籍人员",
     populationType: "户籍人员",
-    relation: "父女"
+    relation: "户主"
   },
   {
-    name: "张三",
+    name: "吴佳恩",
     sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
+    age: "**",
+    IDNumber: "310226199110**3728",
     type: "户籍人员",
     populationType: "户籍人员",
-    relation: "父女"
+    relation: "配偶"
   },
   {
-    name: "张三",
+    name: "金忠敏",
     sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
-    type: "户籍人员",
-    populationType: "户籍人员",
-    relation: "父女"
-  },
-  {
-    name: "张三",
-    sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
-    type: "户籍人员",
-    populationType: "户籍人员",
-    relation: "父女"
-  },
-  {
-    name: "张三",
-    sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
-    type: "户籍人员",
-    populationType: "户籍人员",
-    relation: "父女"
-  },
-  {
-    name: "张三",
-    sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
-    type: "户籍人员",
-    populationType: "户籍人员",
-    relation: "父女"
-  },
-  {
-    name: "张三",
-    sex: "女",
-    age: "50",
-    IDNumber: "3221222222111111",
+    age: "**",
+    IDNumber: "310226199209**2614",
     type: "户籍人员",
     populationType: "户籍人员",
     relation: "父女"
