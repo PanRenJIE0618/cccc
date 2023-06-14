@@ -1,7 +1,8 @@
 <template>
   <div class="fx-home">
     <component :is="store.currentBottomSelected"/>
-    <HMI></HMI>
+    <scene/>
+<!--    <HMI></HMI>-->
     <LayerTree v-if="SelectMod === ''"></LayerTree>
     <Tools v-if="SelectMod === ''"></Tools>
     <BottomToolbar @clickChild="clickEven"></BottomToolbar>
@@ -19,6 +20,7 @@ import Tools from '../../components/tools.vue';
 import ViewPoint from '../../components/viewpoint.vue';
 import {ref, onMounted, onUnmounted, onUpdated} from "vue";
 import {useStore} from "../../store";
+import Scene from "../../components/scene.vue";
 
 const store = useStore();
 

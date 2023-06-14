@@ -16,10 +16,8 @@ import {createPinia} from "pinia";
 //引入flexible
 import 'amfe-flexible';
 
-import cesiumContainer from './components/cesiumContainer.vue';
 
 const app = createApp(App);
-app.component('cesiumContainer', cesiumContainer);
 // app.config.globalProperties.$axios = axios();
 app.use(createPinia()).use(ElementPlus).use(router).mount('#app');
 
