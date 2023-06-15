@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {reactive} from 'vue';
 
-let tableTitle = reactive<Array>([
+let tableTitle = reactive<any>([
   {
     title: "姓名",
     name: "name",
@@ -38,7 +38,7 @@ let tableTitle = reactive<Array>([
     width: 100
   },
 ]);
-let tableData = reactive<Array>([
+let tableData = reactive<any>([
   {
     name: "张三",
     sex: "女",

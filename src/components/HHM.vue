@@ -14,7 +14,7 @@ interface LC {
   room: number;
 }
 
-let familyData = reactive<LC>({
+let familyData = reactive<any>({
   title: "奉贤区服务大楼1栋",
   room: null
 });
@@ -25,7 +25,7 @@ let toPop: (item: object) => string = function (item: object): string {
   Box.value = true;
 };
 
-let unit = computed<string>(() => (name: string) => {
+let unit = computed<any>(() => (name: string) => {
   let unitText = "";
   switch (name) {
     case "面积" :
@@ -44,7 +44,7 @@ let unit = computed<string>(() => (name: string) => {
   return unitText;
 });
 
-let SunData = reactive<Sum>([
+let SunData = reactive<any>([
   {
     name: "面积",
     img: new URL("../assets/HHM/fx-HHM_area.png", import.meta.url).href,

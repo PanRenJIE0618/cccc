@@ -13,7 +13,6 @@
 </template>
 <script setup lang="ts">
 import BottomToolbar from '../../components/bottom_toolbar.vue';
-import HMI from '../../components/hmi.vue';
 import LayerTree from '../../components/layer_tree.vue';
 import Tools from '../../components/tools.vue';
 import ViewPoint from '../../components/viewpoint.vue';

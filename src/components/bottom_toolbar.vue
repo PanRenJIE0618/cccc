@@ -32,7 +32,7 @@ let active = {
   drill: "fx-bottom_Emergency_drill"
 };
 
-let activeImg = computed<string>(() => (item: object) => {
+let activeImg = computed<any>(() => (item: any) => {
   let img;
   if (selectMod.value === item.title) {
     img = active[item.name] + "_active";
@@ -67,7 +67,7 @@ let DPEmod: (mod: object) => string = function (mod: object): string {
   if (selectMod.value === mod.title) {
     selectMod.value = "";
     emit('clickChild', selectMod.value);
-    store.setCurrentBottomSelected();
+    store.setCurrentBottomSelected(null);
     return;
   }
   selectMod.value = mod.title;

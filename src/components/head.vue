@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onUnmounted} from 'vue';
 import type {Ref} from 'vue';
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
 
 let UserName = ref("admin")
 let menu = ref(false);
@@ -16,11 +16,11 @@ onUnmounted(() => {
   clearInterval(Time);
 });
 
-let mouseMoveIn: () => string = function (): string {
+let mouseMoveIn: () => void = function () {
   menu.value = true;
 };
 
-let mouseMoveOut: () => string = function (): string {
+let mouseMoveOut: () => void = function () {
   menu.value = false;
 };
 

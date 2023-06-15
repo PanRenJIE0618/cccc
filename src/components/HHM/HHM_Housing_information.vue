@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {reactive} from 'vue';
 
-let list = reactive<Array>({
+let list = reactive<any>({
   house: [
     {
       name: "所属区域",

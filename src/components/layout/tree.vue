@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import {ref, defineProps,watch, withDefaults,defineEmits} from "vue";
+import {ref, defineProps, watch, withDefaults, defineEmits} from "vue";
 
 let defaultExpandedKeys = ref([11, 22, 33, 44, 55, 66, 77, 88, 99]);
 
 interface PropsType {
-  list: object;
+  list: any;
 }
 
 const props = withDefaults(defineProps<PropsType>(), {
