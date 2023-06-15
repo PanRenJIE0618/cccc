@@ -1,6 +1,7 @@
 // @ts-ignore
 import {createApp} from 'vue';
 import './style.less';
+// @ts-ignore
 import App from './App.vue';
 // @ts-ignore
 import router from '../src/router';
@@ -16,6 +17,7 @@ import {createPinia} from "pinia";
 //引入flexible
 import 'amfe-flexible';
 
+// @ts-ignore
 import cesiumContainer from './components/cesiumContainer.vue';
 
 const app = createApp(App);

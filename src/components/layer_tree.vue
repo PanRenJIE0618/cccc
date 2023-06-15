@@ -28,7 +28,7 @@ let list = reactive<object>(null)
 let Box = ref(false)
 const mods = reactive<Array<any>>([
   {
-    name: "时刻基础数据",
+    name: "时空基础数据",
     svg: basic_data
   },
   {
@@ -82,7 +82,6 @@ let HandleListClick: (name:string,index: number) => any = function (name:string,
 };
 onMounted(() => {
   console.log("Tree 组件创建成功");
-  viewer.entities.removeAll()
 });
 </script>
 

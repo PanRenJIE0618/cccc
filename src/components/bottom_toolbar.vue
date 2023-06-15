@@ -20,7 +20,6 @@ const clickChild = () => {
   };
   //传递给父组件
 };
-import type {Ref} from "vue";
 import {useStore} from "../store";
 import Data_analysis from "./data_analysis/data_analysis.vue";
 import Emergency_drill from "./emergency/emergency_drill.vue";
@@ -32,8 +31,8 @@ let active = {
   drill: "fx-bottom_Emergency_drill"
 };
 
-let activeImg = computed<string>(() => (item: object) => {
-  let img;
+let activeImg = computed<any>(() => (item: { title: string, name: string }) => {
+  let img: any;
   if (selectMod.value === item.title) {
     img = active[item.name] + "_active";
   } else {
@@ -63,7 +62,7 @@ let mod = reactive<Array<object>>([
 
 const store = useStore();
 
-let DPEmod: (mod: object) => string = function (mod: object): string {
+let DPEmod: (mod: {title:string}) => any = function (mod: {title:string}): any {
   if (selectMod.value === mod.title) {
     selectMod.value = "";
     emit('clickChild', selectMod.value);

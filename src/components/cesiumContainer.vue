@@ -8,7 +8,8 @@ onMounted(() => {
   let viewer = new Cesium.Viewer('cesiumContainer', {
     infoBox: false,
     timeline: false,
-    navigation: false
+    navigation: false,
+    selectionIndicator: false
   });
   //设置时间光照受时间影响。
   viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date("2023/06/14 14:00:00"));
@@ -34,7 +35,7 @@ onMounted(() => {
       promise.then(function (layer: any) {
         layer.visible = true;
         layer.skeletonSelectEnable = true;
-        layer.selectedColor = Cesium.Color.RED;
+        // layer.selectedColor = Cesium.Color.RED;
       });
     });
     //设置默认视角

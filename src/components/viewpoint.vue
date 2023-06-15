@@ -26,7 +26,7 @@
             <el-input
               :disabled="item.disabled"
               v-model="item.name"
-              maxlength="7"
+              maxlength="6"
               type="text"
               ref="NameInput"
               @keyup.enter.native="editName(item)"
@@ -53,27 +53,42 @@
 
 <script lang="ts" setup>
 import {reactive, ref, onMounted, nextTick} from "vue";
-import { getPositiondirection } from "../utils/CommonTool.js";
+import {getPositiondirection} from "../utils/CommonTool.js";
 import {ElMessage} from 'element-plus';
 
-let start: number = ref(0);
-let end: number = ref(4);
-let mask: number = ref(-1);
+let start = ref<number>(0);
+let end = ref<number>(4);
+let mask = ref<number>(-1);
 let viewer: any = {};
 const NameInput = ref();
 let viewpointBd: any = ref(new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
-let viewpointBox: boolean = ref(false);
+let viewpointBox = ref<boolean>(false);
+
 onMounted(() => {
 
 });
-let ViewPointList = reactive<Array>([
+let ViewPointList = reactive<Array<object>>([
   {
     name: "add",
     image: new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
     disabled: true
   },
+  {
+    name: "南郊能源大厦",
+    image: new URL("../assets/viewpoint/ds.png", import.meta.url).href,
+    position: {
+      longitude: 121.48772432416894,
+      latitude: 30.91564093577384,
+      height: 303.7384397435071,
+      heading: 4.188800462177499,
+      pitch: -0.5210358104595421,
+      roll: 3.108624468950438e-14,
+      position: {"x": -2858228.288185285, "y": 4666448.543236482, "z": 3277086.4040686027}
+    },
+    disabled: false
+  }
 ]);
-let OpenViewPoint: () => string = function (): string {
+let OpenViewPoint: () => any = function (): any {
   let vw = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
   let vws = new URL("../assets/viewpoint/fx-viewpoint_background_select.png", import.meta.url).href;
   viewpointBox.value = !viewpointBox.value;
@@ -81,30 +96,30 @@ let OpenViewPoint: () => string = function (): string {
 
 };
 //鼠标移入移出
-let mouseenter: (index: number) => string = function (index: number): string {
+let mouseenter: (index: number) => any = function (index: number): any {
   mask.value = index;
 };
-let mouseleave: () => string = function (): string {
+let mouseleave: () => any = function (): any {
   mask.value = -1;
   // ViewPointList filter
   ViewPointList.filter((i) => i.disabled = true);
 };
 
-let editName: (cp: object) => string = function (cp: object): string {
+let editName: (cp: { disabled: boolean }) => any = function (cp: { disabled: boolean }): any {
   cp.disabled = true;
 };
-let focusName: (cp: object, index: number) => string = function (cp: object, index: number): string {
+let focusName: (cp: { disabled: boolean }, index: number) => any = function (cp: { disabled: boolean }, index: number): any {
   cp.disabled = false;
   nextTick(() => {
     NameInput.value[index].focus();
   });
 };
 //ViewPoint mod
-let edit: (cp: object) => string = function (cp: object): string {
+let edit: (cp: { image: any, position: object }) => any = function (cp: { image: any, position: object }): any {
   console.log("编辑");
   console.log(cp);
   let promise = viewer.scene.outputSceneToFile();
-  Cesium.when(promise, (imgUrl) => {
+  Cesium.when(promise, (imgUrl: any) => {
     let position = getPositiondirection(viewer);
     ElMessage({
       message: '编辑视点成功',
@@ -115,7 +130,7 @@ let edit: (cp: object) => string = function (cp: object): string {
     cp.position = position;
   });
 };
-let flight: (position: object) => string = function (position: object): string {
+let flight: (position: { position: any }) => any = function (position: { position: any }): any {
   viewer = window.viewer;
   console.log("飞行");
   console.log(position);
@@ -129,28 +144,29 @@ let flight: (position: object) => string = function (position: object): string {
     }
   });
 };
-let delViewPoint: (index: number) => string = function (index: number): string {
+let delViewPoint: (index: number) => any = function (index: number): any {
   console.log("删除");
   ViewPointList.splice((index + start.value), 1);
-  if (ViewPointList.slice(start.value, end.value) == [] || ViewPointList.slice(start.value, end.value).length == 0) {
+  let ViewList = ViewPointList.slice(start.value, end.value)
+  if (ViewList.length === 0) {
     start.value -= 4;
     end.value -= 4;
   }
 };
 //关闭
-let closeView: () => string = function (): string {
+let closeView: () => any = function (): any {
   viewpointBox.value = false;
   viewpointBd.value = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
 };
 //翻页
-let PageUp: () => string = function (): string {
+let PageUp: () => any = function (): any {
   if (start.value == 0) {
     return;
   }
   start.value -= 4;
   end.value -= 4;
 };
-let PageDown: () => string = function (): string {
+let PageDown: () => any = function (): any {
   if (end.value == ViewPointList.length || ViewPointList.length < end.value) {
     return;
   }
@@ -158,10 +174,10 @@ let PageDown: () => string = function (): string {
   end.value += 4;
 };
 //添加
-let addViewPoint: () => string = function (): string {
+let addViewPoint: () => any = function (): any {
   viewer = window.viewer;
   let promise = viewer.scene.outputSceneToFile();
-  Cesium.when(promise, (imgUrl) => {
+  Cesium.when(promise, (imgUrl: any) => {
     // console.log("点击")
     let position = getPositiondirection(viewer);
     // console.log(position)
@@ -297,7 +313,7 @@ let addViewPoint: () => string = function (): string {
             .el-input__inner {
               color: white;
               text-align: center;
-              font-size: 22px;
+              font-size: 20px;
             }
 
             input:disabled {

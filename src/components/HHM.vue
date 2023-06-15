@@ -4,7 +4,7 @@ import HHMpOP from './HHM_POP.vue';
 
 interface Sum {
   name: string;
-  img: string;
+  img: any;
   value: any;
 }
 
@@ -14,12 +14,20 @@ interface LC {
   room: number;
 }
 
+let viewer = window.viewer
 let familyData = reactive<LC>({
-  title: "百通路88弄4号",
-  room: null
+  id:"",
+  title:"",
+  room:0,
 });
+let TableBox = ref(false);
 
-let toPop: (item: object) => string = function (item: object): string {
+let toPop: (item: {room:number}) => any = function (item: {room:number}): any {
+  if (familyData.room === item.room) {
+    familyData.room = -1;
+    Box.value = false;
+    return;
+  }
   familyData.room = item.room;
   console.log(item);
   if (item.room === 1902) {
@@ -27,7 +35,7 @@ let toPop: (item: object) => string = function (item: object): string {
   }
 };
 
-let position1 = reactive<Array>([
+let position1 = reactive<Array<object>>([
   {
     x: -2858229.2560656816,
     y: 4665960.176018165,
@@ -53,8 +61,8 @@ let position1 = reactive<Array>([
 let height = 0;
 let minHeights = [];
 let maxHeights = [];
-let minH2 = [];
-let position2 = reactive<Array>([121.49040627609307, 30.918327091931495, height, 121.48794646671836, 30.917738776868237, height, 121.48741281384808, 30.919937242504258, height, 121.48990667762858, 30.920485063787883, height, 121.49040627609307, 30.918327091931495, height]);
+let minH2:any = [];
+let position2 = reactive<Array<any>>([121.49040627609307, 30.918327091931495, height, 121.48794646671836, 30.917738776868237, height, 121.48741281384808, 30.919937242504258, height, 121.48990667762858, 30.920485063787883, height, 121.49040627609307, 30.918327091931495, height]);
 
 for (let i = 0; i < position2.length / 3; i++) {
   minHeights.push(Math.floor(position2[i * 3 + 2]));
@@ -72,7 +80,7 @@ const Wall3D1 = {
   wall: {
     minimumHeights: minHeights,
     maximumHeights: maxHeights,
-    material: Cesium.Color.YELLOW.withAlpha(0.3),
+    material: Cesium.Color.fromCssColorString("rgba(23, 234, 217,0.3)"),
     positions: Cesium.Cartesian3.fromDegreesArrayHeights(position2),
   },
 };
@@ -89,65 +97,85 @@ const Wall3D = {
       }
       return minH2;
     }, false),
-    material: Cesium.Color.YELLOW.withAlpha(0.5),
+    material: Cesium.Color.fromCssColorString("rgba(23, 234, 217,0.5)"),
     positions: Cesium.Cartesian3.fromDegreesArrayHeights(position2),
   },
 };
-
+//linear-gradient(135deg,#17ead9,#6078ea)
+//Cesium.Color.fromCssColorString("rgba(255, 255, 255, 0.75)")
 const label3D = {
   name: "4号",
   label: {
-    text:"4号",
+    text: "4号",
     font: "24px Helvetica",
     fillColor: Cesium.Color.WHITE,
     outlineColor: Cesium.Color.fromCssColorString("#FFF"),
     outlineWidth: 1,
-    showBackground:true,
-    backgroundColor:Cesium.Color.fromCssColorString("#008cff"),
+    showBackground: true,
+    backgroundColor: Cesium.Color.fromCssColorString("#008cff"),
     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-    position:  Cesium.Cartesian3.fromDegrees(121.48825384669222,30.918073536641835,70),
+    position: Cesium.Cartesian3.fromDegrees(121.48825384669222, 30.918073536641835, 70),
     pixelOffset: new Cesium.Cartesian2(0, 0)
   },
-  position:  Cesium.Cartesian3.fromDegrees(121.48825384669222,30.918073536641835,70)
+  position: Cesium.Cartesian3.fromDegrees(121.48825384669222, 30.918073536641835, 70)
 };
+
+
 viewer.entities.removeAll();
 viewer.entities.add(Wall3D1);
 viewer.entities.add(Wall3D);
 viewer.entities.add(label3D);
 
 let scene = viewer.scene;
-let screenSpaceEventHandler;
+let screenSpaceEventHandler : any;
 screenSpaceEventHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-screenSpaceEventHandler.setInputAction(function (e) {
+screenSpaceEventHandler.setInputAction(function (e:any) {
   // 获取选中的S3M图层
-  let position = viewer.scene.pickPosition(e.position);
-  console.log(position);
-  let Cartographic = Cesium.Cartographic.fromCartesian(position);
-  let longitude = Cesium.Math.toDegrees(Cartographic.longitude);
-  let latitude = Cesium.Math.toDegrees(Cartographic.latitude);
-  let height = Cartographic.height;
-  console.log(longitude);
-  console.log(latitude);
-  console.log(height);
+  let pick = viewer.scene.pick(e.position);
+  console.log(pick);
+  if (!pick) {
+    TableBox.value = false;
+  }
+  if (pick.id.name == "4号") {
+    TableBox.value = true;
+    viewer.flyTo(pick.id)
+  } else {
+    TableBox.value = false;
+  }
+
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 // screenSpaceEventHandler = screenSpaceEventHandler && screenSpaceEventHandler.destroy();
 
 onUnmounted(() => {
   console.log("HHM 页面销毁");
+  viewer.entities.removeAll();
   screenSpaceEventHandler = screenSpaceEventHandler && screenSpaceEventHandler.destroy();
 });
-//飞行到指定视角
-viewer.camera.flyTo({
-  destination: new Cesium.Cartesian3.fromDegrees(121.4898096702586, 30.916208488036833, 428.02024401127267),
-  orientation: {
-    heading: 6.031225809124743,
-    pitch: -0.8602720425959918,
-    roll: 6.283185307179586
-  }
-});
 
-let unit = computed<string>(() => (name: string) => {
-  let unitText = "";
+let camera = reactive<Object>(
+  {
+    x:121.4898096702586,
+    y:30.916208488036833,
+    z:428.02024401127267,
+    h:6.031225809124743,
+    p:-0.8602720425959918,
+    r:6.283185307179586,
+  }
+)
+let flyTo = function (camera:object) {
+  //飞行到指定视角
+  viewer.camera.flyTo({
+    destination: new Cesium.Cartesian3.fromDegrees(camera.x,camera.y ,camera.z ),
+    orientation: {
+      heading:camera.h,
+      pitch: camera.p,
+      roll: camera.r
+    }
+  });
+}
+flyTo(camera)
+let unit = computed<any>(() => (name: string) => {
+  let unitText : any = "";
   switch (name) {
     case "面积" :
       unitText = "m²";
@@ -165,7 +193,7 @@ let unit = computed<string>(() => (name: string) => {
   return unitText;
 });
 
-let SunData = reactive<Sum>([
+let SunData = reactive<Array<Sum>>([
   {
     name: "面积",
     img: new URL("../assets/HHM/fx-HHM_area.png", import.meta.url).href,
@@ -204,35 +232,8 @@ interface LD {
   rooms?: RM[];
 }
 
-const createData = (
-  maxDeep: number,
-  maxChildren: number,
-  minNodesNumber: number,
-  deep = 1,
-): LD[] => {
-  let id = 0;
-  return Array.from({length: minNodesNumber})
-    .fill(deep)
-    .map(() => {
-      let key = ++id;
-      let roomId = 0;
-      return {
-        id: key,
-        floor: key,
-        rooms: Array.from({length: 12})
-          .fill(deep)
-          .map(() => {
-            let roomKey = ++roomId;
-            return {
-              id: roomKey,
-              room: (key * 100) + roomKey,
-            };
-          })
-      };
-    });
-};
 
-let building = reactive<Array>([
+let building = reactive<Array<object>>([
   {
     floor: 2,
     id: 2,
@@ -508,18 +509,25 @@ let building = reactive<Array>([
   },
 ]);
 
+//给与数组对象排序 倒序
+function sortBy(arr:any, k:string) {
+  return arr.concat().sort((a:any, b:any) => (b[k] > a[k] ? 1 : b[k] < a[k] ? -1 : 0));
+}
+
+building = sortBy(building, "floor");
 // let building = reactive<Array>(createData(2, 7, 7));
 
 let Box = ref(false);
 const clickEven = (val: boolean) => {
   Box.value = val;
+  familyData.room = -1
 };
 
 </script>
 
 <template>
   <div class="fx-HHM">
-    <div class="fx-HHM_Table">
+    <div class="fx-HHM_Table" v-if="TableBox">
       <div class="fx-HHM_Table_title">楼栋信息</div>
       <div class="fx-HHM_Table_content">
         <div class="fx-HHM_Table_content_head">
@@ -535,7 +543,7 @@ const clickEven = (val: boolean) => {
           <div class="fx-HHM_Table_content_table_floor" v-for="(item,index) in building" :key="index">
             <div class="floor">{{ item.floor }}层</div>
             <div class="fx-HHM_Table_content_table_rooms">
-              <div class="room" :class="{'room_select':familyData.room === room.room,'room_err':room.room === 102}"
+              <div class="room" :class="{'room_select':familyData.room === room.room,'room_err':room.room !== 1902}"
                    v-for="(room,i) in item.rooms"
                    :key="i" @click="toPop(room)">{{ room.room }} ({{ room.NumPeople }})
               </div>
@@ -557,7 +565,7 @@ const clickEven = (val: boolean) => {
       </div>
       <div class="fx-HHM_SumData_img">
         <img src="../assets/HHM/fx-HHM_SumData_img.png" alt="">
-        <p>卓越世纪中心小区</p>
+        <p @click="flyTo(camera)">银河丽湾小区</p>
       </div>
     </div>
     <HHMpOP :familyData="familyData" @clickClose="clickEven" v-if="Box"></HHMpOP>

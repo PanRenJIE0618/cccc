@@ -9,6 +9,7 @@ const instance = axios.create({
   // 请求超时时间
   timeout: 5000,
 });
+// @ts-ignore
 instance.interceptors.request.use((config: AxiosRequestConfig) => {
   // 请求头添加token
   return config;

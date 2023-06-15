@@ -18,12 +18,12 @@ class Maptools {
    * @param viewer {Object} 部件
    */
   measuringdistance(viewer) {
-    var handlerDis = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.Distance, 0);
+    let handlerDis = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.Distance, 0);
     // 注册测距功能事件
     handlerDis.measureEvt.addEventListener(function (result) {
       console.log(result);
-      var dis = Number(result.distance);
-      var distance = dis > 1000 ? (dis / 1000).toFixed(2) + "km" : dis.toFixed(2) + "m";
+      const dis = Number(result.distance)
+      const distance = dis > 1000 ? (dis / 1000).toFixed(2) + "km" : dis.toFixed(2) + "m"
       handlerDis.disLabel.text = "距离:" + distance;
     });
     // handlerDis.activeEvt.addEventListener(function(isActive) {
@@ -44,12 +44,12 @@ class Maptools {
    * @param viewer {Object} 部件
    */
   measuringheight(viewer) {
-    var handlerHeight = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.DVH);
+    const handlerHeight = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.DVH)
     // 注册测距功能事件
     handlerHeight.measureEvt.addEventListener(function (result) {
-      var distance = result.distance > 1000 ? (result.distance / 1000).toFixed(2) + "km" : (result.distance * 1).toFixed(2) + "m";
-      var vHeight = result.verticalHeight > 1000 ? (result.verticalHeight / 1000).toFixed(2) + "km" : (result.verticalHeight * 1).toFixed(2) + "m";
-      var hDistance = result.horizontalDistance > 1000 ? (result.horizontalDistance / 1000).toFixed(2) + "km" : (result.horizontalDistance * 1).toFixed(2) + "m";
+      const distance = result.distance > 1000 ? (result.distance / 1000).toFixed(2) + "km" : (result.distance * 1).toFixed(2) + "m"
+      const vHeight = result.verticalHeight > 1000 ? (result.verticalHeight / 1000).toFixed(2) + "km" : (result.verticalHeight * 1).toFixed(2) + "m"
+      const hDistance = result.horizontalDistance > 1000 ? (result.horizontalDistance / 1000).toFixed(2) + "km" : (result.horizontalDistance * 1).toFixed(2) + "m"
       handlerHeight.disLabel.text = "空间距离:" + distance;
       handlerHeight.vLabel.text = "垂直高度:" + vHeight;
       handlerHeight.hLabel.text = "水平距离:" + hDistance;
@@ -72,10 +72,10 @@ class Maptools {
    * @param viewer {Object} 部件
    */
   measuringArea(viewer) {
-    var handlerArea = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.Area);
+    const handlerArea = new Cesium.MeasureHandler(viewer, Cesium.MeasureMode.Area)
     // 注册测距功能事件
     handlerArea.measureEvt.addEventListener(function (result) {
-      var area = result.area > 1000000 ? result.area / 1000000 + 'km²' : result.area + '㎡';
+      const area = result.area > 1000000 ? result.area / 1000000 + 'km²' : result.area + '㎡'
       handlerArea.areaLabel.text = '面积:' + area;
     });
     // handlerArea.activeEvt.addEventListener(function(isActive) {
@@ -97,33 +97,33 @@ class Maptools {
    * @constructor
    */
   Visibleanalysis(viewer) {
-    var _that = this;
+    const _that = this
     if (this.viewshed3DList != "") {
       this.viewer.scene.viewFlag = true;
       this.pointHandler.clear();
       this.viewshed3DList.distance = 0.1;
     }
     this.viewer = viewer;
-    var scene = viewer.scene;
-    var viewPosition;
+    const scene = viewer.scene
+    let viewPosition
     if (!scene.pickPositionSupported) {
       alert("不支持深度纹理,可视域分析功能无法使用（无法添加观测）！");
     }
     // 先将此标记置为true，不激活鼠标移动事件中对可视域分析对象的操作
     scene.viewFlag = true;
     // 创建点位对象
-    var pointHandler = new Cesium.DrawHandler(viewer, Cesium.DrawMode.Point);
+    const pointHandler = new Cesium.DrawHandler(viewer, Cesium.DrawMode.Point)
     // 创建可视域分析对象
     this.viewshed3DList = new Cesium.ViewShed3D(scene);
     //可视域分析对象属性
-    var viewModel = {
+    const viewModel = {
       direction: 1.0,
       pitch: 1.0,
       distance: 1.0,
       verticalFov: 1.0,
       horizontalFov: 1.0,
-    };
-    var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    }
+    const handler = new Cesium.ScreenSpaceEventHandler(scene.canvas)
     handler.setInputAction(function (e) {
       //鼠标右键事件回调，不再执行鼠标移动事件中对可视域的操作
       scene.viewFlag = true;
@@ -137,14 +137,14 @@ class Maptools {
     //激活绘制点类
     pointHandler.activate();
     pointHandler.drawEvt.addEventListener(function (result) {
-      var point = result.object;
-      var position = point.position;
+      const point = result.object
+      const position = point.position
       viewPosition = position;
       // 将获取的点的位置转化成经纬度
-      var cartographic = Cesium.Cartographic.fromCartesian(position);
-      var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-      var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-      var height = cartographic.height + 1.8;
+      const cartographic = Cesium.Cartographic.fromCartesian(position)
+      const longitude = Cesium.Math.toDegrees(cartographic.longitude)
+      const latitude = Cesium.Math.toDegrees(cartographic.latitude)
+      const height = cartographic.height + 1.8
       point.position = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
       if (scene.viewFlag) {
         // 设置视口位置
@@ -159,16 +159,16 @@ class Maptools {
       // 若此标记为false，则激活对可视域分析对象的操作
       if (!scene.viewFlag) {
         //获取鼠标屏幕坐标,并将其转化成笛卡尔坐标
-        var position = e.endPosition;
-        var last = scene.pickPosition(position);
+        const position = e.endPosition
+        const last = scene.pickPosition(position)
         //计算该点与视口位置点坐标的距离
-        var distance = Cesium.Cartesian3.distance(viewPosition, last);
+        const distance = Cesium.Cartesian3.distance(viewPosition, last)
         if (distance > 0) {
           // 将鼠标当前点坐标转化成经纬度
-          var cartographic = Cesium.Cartographic.fromCartesian(last);
-          var longitude = Cesium.Math.toDegrees(cartographic.longitude);
-          var latitude = Cesium.Math.toDegrees(cartographic.latitude);
-          var height = cartographic.height;
+          const cartographic = Cesium.Cartographic.fromCartesian(last)
+          const longitude = Cesium.Math.toDegrees(cartographic.longitude)
+          const latitude = Cesium.Math.toDegrees(cartographic.latitude)
+          const height = cartographic.height
           // 通过该点设置可视域分析对象的距离及方向
           _that.viewshed3DList.setDistDirByPoint([longitude, latitude, height]);
         }

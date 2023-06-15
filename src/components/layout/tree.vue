@@ -4,7 +4,7 @@ import {ref, defineProps,watch, withDefaults,defineEmits} from "vue";
 let defaultExpandedKeys = ref([11, 22, 33, 44, 55, 66, 77, 88, 99]);
 
 interface PropsType {
-  list: object;
+  list: any;
 }
 
 const props = withDefaults(defineProps<PropsType>(), {
@@ -25,7 +25,7 @@ watch(() => props.list, (newVal) => {
 
 const emit = defineEmits(['clickClose']);
 
-let close: () => string = function (): string {
+let close: () => any = function (): any {
   emit('clickClose', false);
 };
 </script>

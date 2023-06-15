@@ -3,7 +3,7 @@ import {ref, defineProps, watch, withDefaults, reactive, defineEmits, onUpdated}
 import Housing_information from "./HHM/HHM_Housing_information.vue"
 import Personnel_information from "./HHM/HHM_Personnel_information.vue"
 
-let modFa = reactive<Array>([
+let modFa = reactive<Array<object>>([
   {
     name: "房屋信息"
   },
@@ -23,18 +23,18 @@ interface Da {
 }
 
 interface PropsType {
-  familyData: object;
+  familyData: any;
 }
 
 
-let selectFa: (i: number) => string = function (i: number): string {
+let selectFa: (i: number) => any = function (i: number): any {
   active.value = i;
 };
 
 const props = withDefaults(defineProps<PropsType>(), {
   familyData: {
     title:"",
-    room:null
+    room:0
   } // 默认值
 });
 
@@ -49,7 +49,7 @@ watch(() => props.familyData, (newVal) => {
 
 const emit = defineEmits(['clickClose']);
 
-let close: () => string = function (): string {
+let close: () => any = function (): any {
   emit('clickClose', false);
 };
 

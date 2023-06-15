@@ -4,11 +4,11 @@ import Maptools from "../utils/Maptool.cjs";
 
 let MapTool = new Maptools.Maptools();
 
-let reimage = computed<string>(() => (img: string) => {
+let reimage = computed<any>(() => (img: string) => {
   return new URL(img, import.meta.url).href;
 });
 
-let MeasuringTool: (name: string) => string = function (name: string): string {
+let MeasuringTool: (name: string) => any = function (name: string): any {
   let viewer = reactive<any>(window.viewer);
   let position = reactive<object>({
     longitude: -2873622.352663363,
@@ -23,7 +23,7 @@ let MeasuringTool: (name: string) => string = function (name: string): string {
   MapTool[name]?.(viewer,position,Directional)
 };
 
-let ExIm: () => string = function (): string {
+let ExIm: () => any = function (): any {
   console.log("点击");
   tools.value = !tools.value;
 };

@@ -16,11 +16,11 @@ onUnmounted(() => {
   clearInterval(Time);
 });
 
-let mouseMoveIn: () => string = function (): string {
+let mouseMoveIn: () => any = function (): any {
   menu.value = true;
 };
 
-let mouseMoveOut: () => string = function (): string {
+let mouseMoveOut: () => any = function (): any {
   menu.value = false;
 };
 
