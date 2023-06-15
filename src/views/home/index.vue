@@ -20,6 +20,7 @@ import ViewPoint from '../../components/viewpoint.vue';
 import {ref, onMounted, onUnmounted, onUpdated} from "vue";
 import {useStore} from "../../store";
 import Scene from "../../components/scene.vue";
+import {http} from "../../utils/http.ts";
 
 const store = useStore();
 
@@ -34,6 +35,10 @@ const clickEven = (val: string) => {
 };
 onMounted(() => {
   console.log("Home 页面创建完成");
+  http.get('/viewpointLocalization/getViewpointLocation').then(res => {
+    console.log('res');
+    console.log(res);
+  });
 });
 onUpdated(() => {
   console.log("Home 页面更新");
