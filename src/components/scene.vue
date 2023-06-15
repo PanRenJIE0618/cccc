@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import {onMounted} from "vue";
+import {useStore} from "../store";
+
+const store = useStore()
 
 onMounted(() => {
   load()
@@ -16,6 +19,7 @@ onMounted(() => {
 
   addResponseEventListener('CurrentViewPoint', async (data) => {
     console.log(data);
+    store.setCurrentViewPoint(data)
   })
 
   setTimeout(() => {

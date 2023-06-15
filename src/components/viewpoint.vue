@@ -53,8 +53,11 @@
 
 <script lang="ts" setup>
 import {reactive, ref, onMounted, nextTick} from "vue";
-import { getPositiondirection } from "../utils/CommonTool.js";
+import {getPositiondirection} from "../utils/CommonTool.js";
 import {ElMessage} from 'element-plus';
+import {useStore} from "../store";
+import {addViewPoint1} from "../hooks/useViewPoint.ts";
+import {useFlyTo} from "../hooks/useFlyTo.ts";
 
 let start: number = ref(0);
 let end: number = ref(4);
@@ -115,18 +118,14 @@ let edit: (cp: object) => string = function (cp: object): string {
     cp.position = position;
   });
 };
-let flight: (position: object) => string = function (position: object): string {
-  viewer = window.viewer;
-  console.log("飞行");
-  console.log(position);
-  // 4. 飞向利用方位角(heading)、俯仰角(pitch)、滚动角(roll)表示方向(orientatin)的位置
-  viewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(position.position.longitude, position.position.latitude, position.position.height),
-    orientation: {
-      heading: position.position.heading,
-      pitch: position.position.pitch,
-      roll: position.position.roll
-    }
+let flight: (item: object) => void = function (item) {
+  useFlyTo({
+    x: item.position.location.x,
+    y: item.position.location.y,
+    z: item.position.location.z,
+    pitch: item.position.rotation.pitch,
+    yaw: item.position.rotation.yaw,
+    roll: item.position.rotation.roll
   });
 };
 let delViewPoint: (index: number) => string = function (index: number): string {
@@ -157,9 +156,25 @@ let PageDown: () => string = function (): string {
   start.value += 4;
   end.value += 4;
 };
+
+const store = useStore();
+
 //添加
-let addViewPoint: () => string = function (): string {
-  viewer = window.viewer;
+let addViewPoint: () => void = function () {
+  const descriptor = {
+    "CommandStr": "GetPawnLocation",
+    "IsTrue": "true"
+  };
+  emitUIInteraction(descriptor);
+  setTimeout(() => {
+    const point = JSON.parse(store.currentViewPoint);
+    ViewPointList.push({
+      name: "test1",
+      position: point,
+      image: new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
+    });
+  }, 500);
+  /*viewer = window.viewer;
   let promise = viewer.scene.outputSceneToFile();
   Cesium.when(promise, (imgUrl) => {
     // console.log("点击")
@@ -175,7 +190,7 @@ let addViewPoint: () => string = function (): string {
       position: position,
       disabled: true
     });
-  });
+  });*/
 };
 </script>
 
