@@ -2,7 +2,6 @@
   <div class="fx-home">
     <component :is="store.currentBottomSelected"/>
     <scene/>
-<!--    <HMI></HMI>-->
     <LayerTree v-if="SelectMod === ''"></LayerTree>
     <Tools v-if="SelectMod === ''"></Tools>
     <BottomToolbar @clickChild="clickEven"></BottomToolbar>

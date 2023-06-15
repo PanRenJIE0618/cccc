@@ -2067,7 +2067,7 @@ function connect() {
         return;
     }
 
-    ws = new WebSocket("ws://221.130.54.58:8083//");
+    ws = new WebSocket("ws://221.130.54.58:8084//");
 
     ws.onmessage = function(event) {
         let msg = JSON.parse(event.data);
