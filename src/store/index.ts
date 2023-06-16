@@ -11,7 +11,7 @@ type RootState = {
 type RootActions = {
   setCurrentEmergencyPanel: (panel: RootState["currentEmergencyPanel"]) => void,
   setCurrentBottomSelected: (panel: RootState["currentBottomSelected"]) => void,
-  currentHHMexhibition: (panel: RootState["currentHHMexhibition"]) => void,
+  setCurrentHHMexhibition: (panel: RootState["currentHHMexhibition"]) => void,
   setCurrentViewPoint: (viewPoint: RootState["currentViewPoint"]) => void
 }
 
@@ -25,16 +25,13 @@ export const useStore = defineStore<string, RootState, {}, RootActions>('main', 
     };
   },
   actions: {
-    setCurrentEmergencyPanel(panel: any) {
-      // @ts-ignore
+    setCurrentEmergencyPanel(panel) {
       this.currentEmergencyPanel = panel;
     },
-    setCurrentBottomSelected(panel: any) {
-      // @ts-ignore
+    setCurrentBottomSelected(panel) {
       this.currentBottomSelected = panel;
     },
-    setCurrentHHMexhibition(panel: any) {
-      // @ts-ignore
+    setCurrentHHMexhibition(panel) {
       this.currentHHMexhibition = panel;
     },
     setCurrentViewPoint(viewPoint) {

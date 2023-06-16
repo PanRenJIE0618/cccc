@@ -56,27 +56,33 @@ import {reactive, ref, onMounted, nextTick} from "vue";
 import {getPositiondirection} from "../utils/CommonTool.js";
 import {ElMessage} from 'element-plus';
 import {useStore} from "../store";
-import {addViewPoint1} from "../hooks/useViewPoint.ts";
+import {addViewPoint1, getViewPointList} from "../hooks/useViewPoint.ts";
 import {useFlyTo} from "../hooks/useFlyTo.ts";
 
-let start: number = ref(0);
-let end: number = ref(4);
-let mask: number = ref(-1);
+let start = ref(0);
+let end = ref(4);
+let mask = ref(-1);
 let viewer: any = {};
 const NameInput = ref();
 let viewpointBd: any = ref(new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
-let viewpointBox: boolean = ref(false);
+let viewpointBox = ref(false);
 onMounted(() => {
-
+  /* getViewPointList().then(res => {
+     res.data.forEach((item) => {
+       item.image = new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href;
+       item.name = item.locationName;
+     });
+     ViewPointList = [...ViewPointList, ...res.data];
+   });*/
 });
-let ViewPointList = reactive<Array>([
+let ViewPointList = reactive<any>([
   {
     name: "add",
     image: new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
     disabled: true
   },
 ]);
-let OpenViewPoint: () => string = function (): string {
+let OpenViewPoint: () => void = function () {
   let vw = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
   let vws = new URL("../assets/viewpoint/fx-viewpoint_background_select.png", import.meta.url).href;
   viewpointBox.value = !viewpointBox.value;

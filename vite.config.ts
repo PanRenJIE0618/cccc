@@ -11,6 +11,7 @@ import {createSvg} from "./src/icons/index.ts";
 import {svg4VuePlugin} from 'vite-plugin-svg4vue';
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [vue(), createSvg("./src/icons/svg/"), svg4VuePlugin()],
   resolve: {
     alias: {

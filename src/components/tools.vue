@@ -4,11 +4,11 @@ import Maptools from "../utils/Maptool.cjs";
 
 let MapTool = new Maptools.Maptools();
 
-let reimage = computed<string>(() => (img: string) => {
-  return new URL(img, import.meta.url).href;
-});
+let reimage = (img) => {
+  return new URL(`../assets/tools/${img}`, import.meta.url).href;
+};
 
-let MeasuringTool: (name: string) => string = function (name: string): string {
+let MeasuringTool: (name: string) => void = function (name: string) {
   let viewer = reactive<any>(window.viewer);
   switch (name) {
     case "measurement" :
@@ -39,7 +39,7 @@ let MeasuringTool: (name: string) => string = function (name: string): string {
   }
 };
 
-let ExIm: () => string = function (): string {
+let ExIm: () => void = function () {
   console.log("点击");
   tools.value = !tools.value;
 };
@@ -49,27 +49,27 @@ let tools = ref(true);
 let data = reactive<Array<any>>([
   {
     name: "scale",
-    image: "../assets/tools/fx-tools_scale.png",
+    image: "fx-tools_scale.png",
   },
   {
     name: "translation",
-    image: "../assets/tools/fx-tools_translation.png",
+    image: "fx-tools_translation.png",
   },
   {
     name: "panorama",
-    image: "../assets/tools/fx-tools_panorama.png",
+    image: "fx-tools_panorama.png",
   },
   {
     name: "measurement",
-    image: "../assets/tools/fx-tools_measurement.png",
+    image: "fx-tools_measurement.png",
   },
   {
     name: "area",
-    image: "../assets/tools/fx-tools_area.png",
+    image: "fx-tools_area.png",
   },
   {
     name: "clear",
-    image: "../assets/tools/fx-tools_clear.png",
+    image: "fx-tools_clear.png",
   }
 ]);
 </script>

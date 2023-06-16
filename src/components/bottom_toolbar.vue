@@ -39,11 +39,29 @@ let activeImg = computed<any>(() => (item: any) => {
   } else {
     img = active[item.name];
   }
-  return new URL("../assets/bottom/" + img + ".png", import.meta.url).href;
+  // return new URL("../assets/bottom/" + img + ".png", import.meta.url).href;
+  return new URL(`../assets/bottom/${img}.png`, import.meta.url).href;
 });
 
 let selectMod = ref("");
 let mod = reactive<Array<object>>([
+  {
+    title: "数据分析",
+    image: "fx-bottom_Data_analysis",
+    name: "Data"
+  },
+  {
+    title: "人房管理",
+    image: "fx-bottom_Human_housing_management",
+    name: "management"
+  },
+  {
+    title: "应急演练",
+    image: "fx-bottom_Emergency_drill",
+    name: "drill"
+  }
+]);
+/*let mod = reactive<Array<object>>([
   {
     title: "数据分析",
     image: new URL("../assets/bottom/fx-bottom_Data_analysis.png", import.meta.url).href,
@@ -59,7 +77,7 @@ let mod = reactive<Array<object>>([
     image: new URL("../assets/bottom/fx-bottom_Emergency_drill.png", import.meta.url).href,
     name: "drill"
   }
-]);
+]);*/
 
 const store = useStore();
 

@@ -33,7 +33,7 @@ export class Http {
 export const http = new Http('/api');
 
 http.instance.interceptors.response.use((response) => {
-  return response;
+  return response.data;
 }, error => {
   // 通用错误这里处理，业务错误外面的catch里处理
   if (error.response) {
