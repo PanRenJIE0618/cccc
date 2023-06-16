@@ -1,6 +1,6 @@
 import {http} from "../utils/http.ts";
 
-export interface ViewPoint {
+export type ViewPoint = {
   "locationName": string,
   "locationX": string,
   "locationY": string,
@@ -10,19 +10,16 @@ export interface ViewPoint {
   "rotationRoll": string
 }
 
-export const addViewPoint1 = (data: ViewPoint) => {
-  http.post('/viewpointLocalization/save', data).then(res => {
-    console.log('--res--');
-    console.log(res);
-  });
+export const saveViewPoint = (data: ViewPoint) => {
+  return http.post('/viewpointLocalization/save', data);
 };
 
 export const getViewPointList = () => {
   return http.get('/viewpointLocalization/getViewpointLocation');
 };
 
-export const deleteViewPointById = () => {
-
+export const deleteViewPointById = (id: string) => {
+  return http.post(`/viewpointLocalization/delete/${id}`);
 };
 
 export const changeViewPoint = () => {

@@ -10,7 +10,7 @@
     </div>
     <div class="fx-viewpoint_box_content">
       <div class="fx-viewpoint_box_content_vp">
-        <div class="fx-viewpoint_box_content_vp_t" v-for="(item,index) in ViewPointList.slice(start,end)" :key="index"
+        <div class="fx-viewpoint_box_content_vp_t" v-for="(item,index) in ViewPointList.slice(start,end)" :key="item.id"
              @mouseenter="mouseenter(index)" @mouseleave="mouseleave"
              :style="{'backgroundImage':`url(${item.image})`,'background-repeat':'no-repeat'}">
           <div class="fx-viewpoint_box_content_addViewPoint" v-if="index === (start)" @click="addViewPoint">
@@ -35,7 +35,7 @@
           <div class="fx-viewpoint_box_content_mask" v-if="index !== (start) && index === mask">
             <div class="fx-viewpoint_box_content_mask_compile" @click="edit(item)"></div>
             <div class="fx-viewpoint_box_content_mask_flight" @click="flight(item)"></div>
-            <div class="fx-viewpoint_box_content_mask_BoxDelete" @click="delViewPoint(index)"></div>
+            <div class="fx-viewpoint_box_content_mask_BoxDelete" @click="delViewPoint(item)"></div>
           </div>
         </div>
       </div>
@@ -52,11 +52,11 @@
 </template>
 
 <script lang="ts" setup>
-import {reactive, ref, onMounted, nextTick} from "vue";
+import {ref, onMounted, nextTick} from "vue";
 import {getPositiondirection} from "../utils/CommonTool.js";
 import {ElMessage} from 'element-plus';
 import {useStore} from "../store";
-import {addViewPoint1, getViewPointList} from "../hooks/useViewPoint.ts";
+import {deleteViewPointById, getViewPointList, saveViewPoint} from "../hooks/useViewPoint.ts";
 import {useFlyTo} from "../hooks/useFlyTo.ts";
 
 let start = ref(0);
@@ -66,22 +66,28 @@ let viewer: any = {};
 const NameInput = ref();
 let viewpointBd: any = ref(new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
 let viewpointBox = ref(false);
-onMounted(() => {
-  /* getViewPointList().then(res => {
-     res.data.forEach((item) => {
-       item.image = new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href;
-       item.name = item.locationName;
-     });
-     ViewPointList = [...ViewPointList, ...res.data];
-   });*/
-});
-let ViewPointList = reactive<any>([
+
+let ViewPointList = ref<any>([
   {
     name: "add",
     image: new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
     disabled: true
   },
 ]);
+
+const refreshViewList = () => {
+  getViewPointList().then(res => {
+    res.data.forEach((item) => {
+      item.image = new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href;
+      item.name = item.locationName;
+    });
+    ViewPointList.value = [ViewPointList.value[0], ...res.data];
+  });
+};
+onMounted(() => {
+  refreshViewList();
+});
+
 let OpenViewPoint: () => void = function () {
   let vw = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
   let vws = new URL("../assets/viewpoint/fx-viewpoint_background_select.png", import.meta.url).href;
@@ -90,19 +96,19 @@ let OpenViewPoint: () => void = function () {
 
 };
 //鼠标移入移出
-let mouseenter: (index: number) => string = function (index: number): string {
+let mouseenter: (index: number) => void = function (index) {
   mask.value = index;
 };
-let mouseleave: () => string = function (): string {
+let mouseleave: () => void = function () {
   mask.value = -1;
   // ViewPointList filter
-  ViewPointList.filter((i) => i.disabled = true);
+  ViewPointList.value.filter((i) => i.disabled = true);
 };
 
-let editName: (cp: object) => string = function (cp: object): string {
+let editName: (cp: object) => void = function (cp) {
   cp.disabled = true;
 };
-let focusName: (cp: object, index: number) => string = function (cp: object, index: number): string {
+let focusName: (cp: object, index: number) => void = function (cp, index) {
   cp.disabled = false;
   nextTick(() => {
     NameInput.value[index].focus();
@@ -126,21 +132,18 @@ let edit: (cp: object) => string = function (cp: object): string {
 };
 let flight: (item: object) => void = function (item) {
   useFlyTo({
-    x: item.position.location.x,
-    y: item.position.location.y,
-    z: item.position.location.z,
-    pitch: item.position.rotation.pitch,
-    yaw: item.position.rotation.yaw,
-    roll: item.position.rotation.roll
+    x: item.locationX,
+    y: item.locationY,
+    z: item.locationZ,
+    pitch: item.rotaionPitch,
+    yaw: item.rotaionHeading,
+    roll: item.rotationRoll
   });
 };
-let delViewPoint: (index: number) => string = function (index: number): string {
-  console.log("删除");
-  ViewPointList.splice((index + start.value), 1);
-  if (ViewPointList.slice(start.value, end.value) == [] || ViewPointList.slice(start.value, end.value).length == 0) {
-    start.value -= 4;
-    end.value -= 4;
-  }
+let delViewPoint: (item: object) => void = function (item) {
+  deleteViewPointById(item.id).then(() => {
+    refreshViewList();
+  });
 };
 //关闭
 let closeView: () => string = function (): string {
@@ -156,7 +159,7 @@ let PageUp: () => string = function (): string {
   end.value -= 4;
 };
 let PageDown: () => string = function (): string {
-  if (end.value == ViewPointList.length || ViewPointList.length < end.value) {
+  if (end.value == ViewPointList.value.length || ViewPointList.value.length < end.value) {
     return;
   }
   start.value += 4;
@@ -174,11 +177,22 @@ let addViewPoint: () => void = function () {
   emitUIInteraction(descriptor);
   setTimeout(() => {
     const point = JSON.parse(store.currentViewPoint);
-    ViewPointList.push({
+    saveViewPoint({
+      locationName: '视角',
+      locationX: point.location.x,
+      locationY: point.location.y,
+      locationZ: point.location.z,
+      rotaionPitch: point.rotation.pitch,
+      rotaionHeading: point.rotation.yaw,
+      rotationRoll: point.rotation.roll,
+    }).then(() => {
+      refreshViewList();
+    });
+    /*ViewPointList.push({
       name: "test1",
       position: point,
       image: new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
-    });
+    });*/
   }, 500);
   /*viewer = window.viewer;
   let promise = viewer.scene.outputSceneToFile();
