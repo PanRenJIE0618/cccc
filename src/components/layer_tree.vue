@@ -97,7 +97,7 @@ onMounted(() => {
   left: 20px;
   bottom: 49px;
   z-index: 5;
-  background: url("../assets/layer/fx-layer_background.png") no-repeat;
+  background: url("/public/image/layer/fx-layer_background.png") no-repeat;
   overflow: scroll;
 
   &::-webkit-scrollbar {

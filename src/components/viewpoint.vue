@@ -2,10 +2,10 @@
   <div class="fx-viewpoint_box" v-if="viewpointBox">
     <div class="fx-viewpoint_box_head">
       <div class="fx-viewpoint_box_title">
-        <img src="../assets/viewpoint/fx-viewpoint_box_eye.png" alt="">
+        <img src="/public/image/viewpoint/fx-viewpoint_box_eye.png" alt="">
         <span>视点定位</span>
       </div>
-      <img @click="closeView" class="fx-viewpoint_box_close" src="../assets/viewpoint/fx-viewpoint_box_close.png"
+      <img @click="closeView" class="fx-viewpoint_box_close" src="/public/image/viewpoint/fx-viewpoint_box_close.png"
            alt="">
     </div>
     <div class="fx-viewpoint_box_content">
@@ -14,7 +14,7 @@
              @mouseenter="mouseenter(index)" @mouseleave="mouseleave"
              :style="{'backgroundImage':`url(${item.image})`,'background-repeat':'no-repeat'}">
           <div class="fx-viewpoint_box_content_addViewPoint" v-if="index === (start)" @click="addViewPoint">
-            <img src="../assets/viewpoint/fx-viewpoint_box_addViewPoint_icon.png" alt="">
+            <img src="/public/image/viewpoint/fx-viewpoint_box_addViewPoint_icon.png" alt="">
             <span>新增视点</span>
           </div>
           <!--          <span class="fx-viewpoint_box_content_mask_viewpointName" v-if="index !== (start) && index === mask" @click="editName()">-->
@@ -39,10 +39,10 @@
           </div>
         </div>
       </div>
-      <img @click="PageUp" class="fx-viewpoint_box_leftArrow" src="../assets/viewpoint/fx-viewpoint_box_Leftarrow.png"
+      <img @click="PageUp" class="fx-viewpoint_box_leftArrow" src="/public/image/viewpoint/fx-viewpoint_box_Leftarrow.png"
            alt="">
       <img @click="PageDown" class="fx-viewpoint_box_RightArrow"
-           src="../assets/viewpoint/fx-viewpoint_box_Rightarrow.png" alt="">
+           src="/public/image/viewpoint/fx-viewpoint_box_Rightarrow.png" alt="">
     </div>
   </div>
   <div class="fx-viewpoint" @click="OpenViewPoint">
@@ -61,7 +61,7 @@ let end = ref<number>(4);
 let mask = ref<number>(-1);
 let viewer: any = {};
 const NameInput = ref();
-let viewpointBd: any = ref(new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
+let viewpointBd: any = ref(new URL("/public/image/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
 let viewpointBox = ref<boolean>(false);
 
 onMounted(() => {
@@ -70,12 +70,12 @@ onMounted(() => {
 let ViewPointList = reactive<Array<object>>([
   {
     name: "add",
-    image: new URL("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
+    image: new URL("/public/image/viewpoint/fx-viewpoint_box_addViewPointBackground.png", import.meta.url).href,
     disabled: true
   },
   {
     name: "南郊能源大厦",
-    image: new URL("../assets/viewpoint/ds.png", import.meta.url).href,
+    image: new URL("/public/image/viewpoint/ds.png", import.meta.url).href,
     position: {
       longitude: 121.48772432416894,
       latitude: 30.91564093577384,
@@ -89,8 +89,8 @@ let ViewPointList = reactive<Array<object>>([
   }
 ]);
 let OpenViewPoint: () => any = function (): any {
-  let vw = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
-  let vws = new URL("../assets/viewpoint/fx-viewpoint_background_select.png", import.meta.url).href;
+  let vw = new URL("/public/image/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
+  let vws = new URL("/public/image/viewpoint/fx-viewpoint_background_select.png", import.meta.url).href;
   viewpointBox.value = !viewpointBox.value;
   viewpointBox.value == true ? viewpointBd.value = vws : viewpointBd.value = vw;
 
@@ -163,7 +163,7 @@ let delViewPoint: (index: number,ViewPoint:any) => any = function (index: number
 //关闭
 let closeView: () => any = function (): any {
   viewpointBox.value = false;
-  viewpointBd.value = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
+  viewpointBd.value = new URL("/public/image/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
 };
 //翻页
 let PageUp: () => any = function (): any {
@@ -215,7 +215,7 @@ let addViewPoint: () => any = function (): any {
   height: 261px;
   left: 50%;
   transform: translate(-50%, 0%);
-  background: url("../assets/viewpoint/fx-viewpoint_box_background.png") no-repeat;
+  background: url("/public/image/viewpoint/fx-viewpoint_box_background.png") no-repeat;
 
   .fx-viewpoint_box_head {
     height: 38px;
@@ -263,7 +263,7 @@ let addViewPoint: () => any = function (): any {
         width: 250px;
         height: 140px;
         margin: 0 10px;
-        background: url("../assets/viewpoint/fx-viewpoint_box_addViewPointBackground.png") no-repeat;
+        background: url("/public/image/viewpoint/fx-viewpoint_box_addViewPointBackground.png") no-repeat;
         position: relative;
 
         .fx-viewpoint_box_content_addViewPoint {
@@ -351,15 +351,15 @@ let addViewPoint: () => any = function (): any {
           }
 
           .fx-viewpoint_box_content_mask_compile {
-            background: url("../assets/viewpoint/fx-viewpoint_box_edit.png") no-repeat;
+            background: url("/public/image/viewpoint/fx-viewpoint_box_edit.png") no-repeat;
           }
 
           .fx-viewpoint_box_content_mask_flight {
-            background: url("../assets/viewpoint/fx-viewpoint_box_flight.png") no-repeat;
+            background: url("/public/image/viewpoint/fx-viewpoint_box_flight.png") no-repeat;
           }
 
           .fx-viewpoint_box_content_mask_BoxDelete {
-            background: url("../assets/viewpoint/fx-viewpoint_box_delete.png") no-repeat;
+            background: url("/public/image/viewpoint/fx-viewpoint_box_delete.png") no-repeat;
           }
         }
       }

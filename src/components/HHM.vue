@@ -196,27 +196,27 @@ let unit = computed<any>(() => (name: string) => {
 let SunData = reactive<Array<Sum>>([
   {
     name: "面积",
-    img: new URL("../assets/HHM/fx-HHM_area.png", import.meta.url).href,
+    img: new URL("/public/image/HHM/fx-HHM_area.png", import.meta.url).href,
     value: "78556"
   },
   {
     name: "开发商",
-    img: new URL("../assets/HHM/fx-HHM_developers.png", import.meta.url).href,
+    img: new URL("/public/image/HHM/fx-HHM_developers.png", import.meta.url).href,
     value: "银基发展（上海）投资控股有限公司"
   },
   {
     name: "建筑面积",
-    img: new URL("../assets/HHM/fx-HHM_construct.png", import.meta.url).href,
+    img: new URL("/public/image/HHM/fx-HHM_construct.png", import.meta.url).href,
     value: "420658"
   },
   {
     name: "规划户数",
-    img: new URL("../assets/HHM/fx-HHM_tenement.png", import.meta.url).href,
+    img: new URL("/public/image/HHM/fx-HHM_tenement.png", import.meta.url).href,
     value: "2000"
   },
   {
     name: "产权年限",
-    img: new URL("../assets/HHM/fx-HHM_population.png", import.meta.url).href,
+    img: new URL("/public/image/HHM/fx-HHM_population.png", import.meta.url).href,
     value: "70"
   },
 ]);
@@ -532,7 +532,7 @@ const clickEven = (val: boolean) => {
       <div class="fx-HHM_Table_content">
         <div class="fx-HHM_Table_content_head">
           <p>
-            <img src="../assets/HHM/fx-HHM_Table_content_head_icon.png" alt="">
+            <img src="/public/image/HHM/fx-HHM_Table_content_head_icon.png" alt="">
             <span>银河丽湾</span>
           </p>
           <p>
@@ -564,7 +564,7 @@ const clickEven = (val: boolean) => {
         </div>
       </div>
       <div class="fx-HHM_SumData_img">
-        <img src="../assets/HHM/fx-HHM_SumData_img.png" alt="">
+        <img src="/public/image/HHM/fx-HHM_SumData_img.png" alt="">
         <p @click="flyTo(camera)">银河丽湾小区</p>
       </div>
     </div>
@@ -597,7 +597,7 @@ const clickEven = (val: boolean) => {
   &_Table {
     width: 353px;
     height: 818px;
-    background: url("../assets/HHM/fx-HHM_background.png") no-repeat;
+    background: url("/public/image/HHM/fx-HHM_background.png") no-repeat;
     position: fixed;
     bottom: 85px;
     left: 30px;
@@ -605,7 +605,7 @@ const clickEven = (val: boolean) => {
     &_title {
       width: 353px;
       height: 32px;
-      background: url("../assets/HHM/fx-HHM_head_background.png") no-repeat;
+      background: url("/public/image/HHM/fx-HHM_head_background.png") no-repeat;
       color: white;
       font-size: 16px;
       padding-left: 40px;
@@ -622,7 +622,7 @@ const clickEven = (val: boolean) => {
       &_head {
         width: 323px;
         height: 84px;
-        background: url("../assets/HHM/fx-HHM_Table_content_head_background.png") no-repeat;
+        background: url("/public/image/HHM/fx-HHM_Table_content_head_background.png") no-repeat;
 
         p:first-child {
           margin: 10px 10px 0 10px;
@@ -669,7 +669,7 @@ const clickEven = (val: boolean) => {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
-          background: url("../assets/HHM/fx-HHM_Table_content_head_background.png") no-repeat;
+          background: url("/public/image/HHM/fx-HHM_Table_content_head_background.png") no-repeat;
 
           .floor {
             width: 50px;
@@ -720,7 +720,7 @@ const clickEven = (val: boolean) => {
     position: fixed;
     right: 20px;
     bottom: 86px;
-    background: url("../assets/HHM/fx-HHM_SumData_background.png") no-repeat;
+    background: url("/public/image/HHM/fx-HHM_SumData_background.png") no-repeat;
 
     &_data {
       width: 100%;

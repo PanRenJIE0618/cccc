@@ -33,26 +33,26 @@ let activeImg = computed<any>(() => (item: { title: string, name: string,active:
   } else {
     img = item.active;
   }
-  return new URL("../assets/bottom/" + img + ".png", import.meta.url).href;
+  return new URL("/public/image/bottom/" + img + ".png", import.meta.url).href;
 });
 
 let selectMod = ref("");
 let mod = reactive<Array<object>>([
   {
     title: "数据分析",
-    image: new URL("../assets/bottom/fx-bottom_Data_analysis.png", import.meta.url).href,
+    image: new URL("/public/image/bottom/fx-bottom_Data_analysis.png", import.meta.url).href,
     name: "Data",
     active: "fx-bottom_Data_analysis"
   },
   {
     title: "人房管理",
-    image: new URL("../assets/bottom/fx-bottom_Human_housing_management.png", import.meta.url).href,
+    image: new URL("/public/image/bottom/fx-bottom_Human_housing_management.png", import.meta.url).href,
     name: "management",
     active: "fx-bottom_Human_housing_management"
   },
   {
     title: "应急演练",
-    image: new URL("../assets/bottom/fx-bottom_Emergency_drill.png", import.meta.url).href,
+    image: new URL("/public/image/bottom/fx-bottom_Emergency_drill.png", import.meta.url).href,
     name: "drill",
     active: "fx-bottom_Emergency_drill"
   }
@@ -90,7 +90,7 @@ console.log(mod);
   z-index: 3;
   width: 100%;
   height: 95px;
-  background: url("../assets/bottom/fx-bottom_background.png") no-repeat 0 5px;
+  background: url("/public/image/bottom/fx-bottom_background.png") no-repeat 0 5px;
   position: absolute;
   bottom: 0;
   display: flex;

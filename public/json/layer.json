@@ -2,7 +2,7 @@
   "layer": [
     {
       "id": 1,
-      "label": "时刻基础数据",
+      "label": "时空基础数据",
       "disabled": true,
       "children": [
         {

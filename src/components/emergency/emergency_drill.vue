@@ -74,7 +74,7 @@ const handleClickAction = (item) => {
 
     &.active {
       background-color: transparent;
-      background-image: url("../../assets/emergency-plan/action-active-bg.png");
+      background-image: url("/public/image/emergency-plan/action-active-bg.png");
     }
   }
 }

@@ -40,10 +40,10 @@ let mouseMoveOut: () => any = function (): any {
       </div>
     </div>
     <div class="fx-head_User" @mouseleave="mouseMoveOut">
-      <img src="../assets/head/fx-head_User_userimage.png" alt="">
+      <img src="/public/image/head/fx-head_User_userimage.png" alt="">
       <span class="fx-head_User_text" @mouseover="mouseMoveIn">
           {{ UserName }}
-          <img src="../assets/head/fx-head_User_Down_arrow.png" alt="">
+          <img src="/public/image/head/fx-head_User_Down_arrow.png" alt="">
       </span>
       <div class="fx-head_User_menu" v-if="menu">
         <div class="arrow"></div>
@@ -61,7 +61,7 @@ let mouseMoveOut: () => any = function (): any {
   z-index: 3;
   width: 100%;
   height: 93px;
-  background: url("../assets/head/fx-head_background.png") no-repeat;
+  background: url("/public/image/head/fx-head_background.png") no-repeat;
   position: absolute;
   top: 0;
   display: flex;
