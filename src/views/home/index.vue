@@ -6,9 +6,9 @@
     <Tools v-if="SelectMod === ''"></Tools>
     <BottomToolbar @clickChild="clickEven"></BottomToolbar>
     <ViewPoint v-if="SelectMod === ''"></ViewPoint>
-    <img class="fx-home_Right_mask" src="/public/image/home/fx-Right_mask.png" alt="">
-    <img class="fx-home_Lower_mask" src="/public/image/home/fx-Lower_mask.png" alt="">
-    <img class="fx-home_Left_mask" src="/public/image/home/fx-Left_mask.png" alt="">
+    <img class="fx-home_Right_mask" src="/image/home/fx-Right_mask.png" alt="">
+    <img class="fx-home_Lower_mask" src="/image/home/fx-Lower_mask.png" alt="">
+    <img class="fx-home_Left_mask" src="/image/home/fx-Left_mask.png" alt="">
   </div>
 <!--  <el-button class="getCurrentViewingAngleCoordinate" @click="getCurrentViewingAngleCoordinate(viewer)">-->
 <!--    getCurrentViewingAngleCoordinate-->

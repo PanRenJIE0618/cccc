@@ -35,12 +35,12 @@ let close: () => any = function (): any {
     <div class="fx-layer_tree_title">
       {{ list.label }}
     </div>
-    <img class="fx-layer_tree_close" src="/public/image/layer/fx-layer_tree_close.png" alt="" @click="close">
+    <img class="fx-layer_tree_close" src="/image/layer/fx-layer_tree_close.png" alt="" @click="close">
     <KeepAlive>
       <el-tree-v2 :data="list.children" :props="propsList" show-checkbox :height="400" :indent="16"
                   :default-expanded-keys="defaultExpandedKeys">
         <template #default="{ node }">
-          <img class="fx-layer_tree_img" src="/public/image/layer/GovernmentAgency.png" alt="">
+          <img class="fx-layer_tree_img" src="/image/layer/GovernmentAgency.png" alt="">
           <span>{{ node.label }}</span>
         </template>
       </el-tree-v2>
@@ -56,7 +56,7 @@ let close: () => any = function (): any {
   bottom: 444px;
   left: 191px;
   z-index: 5;
-  background: url("/public/image/layer/fx-layer_tree_background.png") no-repeat;
+  background: url("/image/layer/fx-layer_tree_background.png") no-repeat;
 
   &_img {
     width: 22px;

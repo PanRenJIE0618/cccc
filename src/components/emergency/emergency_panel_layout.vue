@@ -93,7 +93,7 @@ const props = defineProps<{
     font-size: 16px;
     font-weight: 600;
     line-height: 22px;
-    background-image: url("/public/image/layout/data_info_title_bg.png");
+    background-image: url("/image/layout/data_info_title_bg.png");
     padding-left: 40px;
 
     > span {

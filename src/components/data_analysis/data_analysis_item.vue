@@ -4,7 +4,7 @@
 <template>
   <div class="data-analysis-item">
     <div class="data-analysis-item-title">
-      <img src="/public/image/data-analysis/human-info.png" alt="">
+      <img src="/image/data-analysis/human-info.png" alt="">
       <slot name="title"></slot>
     </div>
     <div class="data-analysis-item-content">

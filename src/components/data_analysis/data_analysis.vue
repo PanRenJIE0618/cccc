@@ -18,24 +18,24 @@ const femalePercent = ref(100 - malePercent.value);
         </template>
         <template v-slot:content>
           <div class="human-info">
-            <div><img src="/public/image/data-analysis/live-human.png" alt=""></div>
+            <div><img src="/image/data-analysis/live-human.png" alt=""></div>
             <div class="live-human">
               <span class="text">常住人口</span>
               <span class="number">1892899</span>
             </div>
           </div>
           <div class="percent">
-            <img src="/public/image/data-analysis/male.png" alt="">
+            <img src="/image/data-analysis/male.png" alt="">
             <div class="progress">
               <div class="male" :style="{width: malePercent+'%'}">{{ malePercent }}%</div>
               <div class="female" :style="{width: femalePercent+'%'}">{{ femalePercent }}%</div>
             </div>
-            <img src="/public/image/data-analysis/female.png" alt="">
+            <img src="/image/data-analysis/female.png" alt="">
           </div>
           <div class="identity">
             <div>
               <div>
-                <img src="/public/image/data-analysis/grassroots-party.png" alt="">
+                <img src="/image/data-analysis/grassroots-party.png" alt="">
               </div>
               <div class="grassroots-party">
                 <span class="text">基层党员</span>
@@ -44,7 +44,7 @@ const femalePercent = ref(100 - malePercent.value);
             </div>
             <div>
               <div>
-                <img src="/public/image/data-analysis/oversea.png" alt="">
+                <img src="/image/data-analysis/oversea.png" alt="">
               </div>
               <div class="oversea">
                 <span class="text">境外人员</span>
@@ -63,7 +63,7 @@ const femalePercent = ref(100 - malePercent.value);
             <div class="number-info">
               <div>
                 <div>
-                  <img src="/public/image/data-analysis/building-number.png" alt="">
+                  <img src="/image/data-analysis/building-number.png" alt="">
                 </div>
                 <div class="building-number">
                   <span class="text">建筑栋数</span>
@@ -72,7 +72,7 @@ const femalePercent = ref(100 - malePercent.value);
               </div>
               <div>
                 <div>
-                  <img src="/public/image/data-analysis/households-number.png" alt="">
+                  <img src="/image/data-analysis/households-number.png" alt="">
                 </div>
                 <div class="household-number">
                   <span class="text">社区户数</span>

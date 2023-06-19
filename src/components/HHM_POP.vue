@@ -65,7 +65,7 @@ onUpdated(() => {
       <span>{{ Data.title }}</span>
       <span>{{ Data.room }}</span>
     </div>
-    <img class="fx-HHM_TableData_close" src="/public/image/HHM/fx-HHM_TableData_close.png" alt="" @click="close">
+    <img class="fx-HHM_TableData_close" src="/image/HHM/fx-HHM_TableData_close.png" alt="" @click="close">
     <div class="fx-HHM_TableData_select">
       <span :class="{'select':active === index}" v-for="(item,index) in modFa" :key="index"
             @click="selectFa(index)">{{ item.name }}</span>
@@ -79,7 +79,7 @@ onUpdated(() => {
 
 <style scoped lang="less">
 .select {
-  background: url("/public/image/HHM/fx-HHM_TableData_select.png") no-repeat !important;
+  background: url("/image/HHM/fx-HHM_TableData_select.png") no-repeat !important;
   background-size: 100% 100% !important
 }
 
@@ -90,7 +90,7 @@ onUpdated(() => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: url("/public/image/HHM/fx-HHm_TableData_background.png") no-repeat;
+  background: url("/image/HHM/fx-HHm_TableData_background.png") no-repeat;
 
   .fx-HHM_TableData_content {
     position: absolute;

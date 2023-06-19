@@ -33,34 +33,34 @@ let tools = ref(true);
 let data = reactive<Array<any>>([
   {
     name: "scale",
-    image: "/public/image/tools/fx-tools_scale.png",
+    image: "/image/tools/fx-tools_scale.png",
   },
   {
     name: "clear",
-    image: "/public/image/tools/fx-tools_translation.png",
+    image: "/image/tools/fx-tools_translation.png",
   },
   {
     name: "panorama",
-    image: "/public/image/tools/fx-tools_panorama.png",
+    image: "/image/tools/fx-tools_panorama.png",
   },
   {
     name: "measuringdistance",
-    image: "/public/image/tools/fx-tools_measurement.png",
+    image: "/image/tools/fx-tools_measurement.png",
   },
   {
     name: "measuringArea",
-    image: "/public/image/tools/fx-tools_area.png",
+    image: "/image/tools/fx-tools_area.png",
   },
   {
     name: "clear",
-    image: "/public/image/tools/fx-tools_clear.png",
+    image: "/image/tools/fx-tools_clear.png",
   }
 ]);
 </script>
 
 <template>
   <img class="fx-tools-arrow" :class="{'arrowShow':tools,'arrow':!tools}" @click="ExIm"
-       src="/public/image/tools/fx-tools_Right_arrow.png" alt="">
+       src="/image/tools/fx-tools_Right_arrow.png" alt="">
   <div class="fx-tools" :class="{'fx-tools':tools,'tools':!tools}">
     <img v-for="(item,index) in data" :key="index" @click="MeasuringTool(item.name)" :src="reimage(item.image)"
          :class="item.name" alt="">
@@ -112,7 +112,7 @@ let data = reactive<Array<any>>([
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  background: url("/public/image/tools/fx-tools_background.png") no-repeat;
+  background: url("/image/tools/fx-tools_background.png") no-repeat;
 
   img {
     margin: 10px;
