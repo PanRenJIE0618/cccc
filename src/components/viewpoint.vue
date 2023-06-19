@@ -35,7 +35,7 @@
           <div class="fx-viewpoint_box_content_mask" v-if="index !== (start) && index === mask">
             <div class="fx-viewpoint_box_content_mask_compile" @click="edit(item)"></div>
             <div class="fx-viewpoint_box_content_mask_flight" @click="flight(item)"></div>
-            <div class="fx-viewpoint_box_content_mask_BoxDelete" @click="delViewPoint(index)"></div>
+            <div class="fx-viewpoint_box_content_mask_BoxDelete" @click="delViewPoint(index,item)"></div>
           </div>
         </div>
       </div>
@@ -144,8 +144,15 @@ let flight: (position: { position: any }) => any = function (position: { positio
     }
   });
 };
-let delViewPoint: (index: number) => any = function (index: number): any {
+let delViewPoint: (index: number,ViewPoint:any) => any = function (index: number,ViewPoint:any): any {
   console.log("删除");
+  if(ViewPoint.name === "南郊能源大厦") {
+    ElMessage({
+      message: '演示视点,暂时不可删除',
+      type: 'warning',
+    })
+    return
+  }
   ViewPointList.splice((index + start.value), 1);
   let ViewList = ViewPointList.slice(start.value, end.value)
   if (ViewList.length === 0) {

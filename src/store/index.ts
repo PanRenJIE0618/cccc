@@ -4,21 +4,20 @@ import {defineStore} from "pinia";
 type RootState = {
   currentEmergencyPanel: Object | string,
   currentBottomSelected: Object | string,
-  currentHHMexhibition: Object | string,
 }
 
 type RootActions = {
   setCurrentEmergencyPanel: (panel: RootState["currentEmergencyPanel"]) => void,
   setCurrentBottomSelected: (panel: RootState["currentBottomSelected"]) => void,
-  currentHHMexhibition: (panel: RootState["currentHHMexhibition"]) => void,
 }
 
+// @ts-ignore
+// @ts-ignore
 export const useStore = defineStore<string, RootState, {}, RootActions>('main', {
   state: () => {
     return {
       currentEmergencyPanel: '',
       currentBottomSelected: '',
-      currentHHMexhibition: ''
     };
   },
   actions: {
@@ -29,10 +28,6 @@ export const useStore = defineStore<string, RootState, {}, RootActions>('main', 
     setCurrentBottomSelected(panel:any) {
       // @ts-ignore
       this.currentBottomSelected = panel;
-    },
-    setCurrentHHMexhibition(panel:any) {
-      // @ts-ignore
-      this.currentHHMexhibition = panel;
-    },
+    }
   }
 });

@@ -1,7 +1,7 @@
 <template>
   <div class="fx-bottom_toolbar">
     <div class="fx-bottom_toolbar__functioning">
-      <div class="fx-bottom_toolbar__module" v-for="(item,index) in mod" :key="index" @click="DPEmod(item)">
+      <div class="fx-bottom_toolbar__module" v-for="(item,index) in mod" :key="index" @click="DPEMod(item)">
         <img :src=activeImg(item) alt="img">
         <p>{{ item.title }}</p>
       </div>
@@ -15,9 +15,9 @@ import {reactive, ref, defineExpose, computed, defineEmits} from "vue";
 
 const emit = defineEmits(['clickChild']);
 const clickChild = () => {
-  let param = {
-    content: 'b'
-  };
+  // let param = {
+  //   content: 'b'
+  // };
   //传递给父组件
 };
 import {useStore} from "../store";
@@ -25,18 +25,13 @@ import Data_analysis from "./data_analysis/data_analysis.vue";
 import Emergency_drill from "./emergency/emergency_drill.vue";
 import HHM from "./HHM.vue";
 
-let active = {
-  Data: "fx-bottom_Data_analysis",
-  management: "fx-bottom_Human_housing_management",
-  drill: "fx-bottom_Emergency_drill"
-};
 
-let activeImg = computed<any>(() => (item: { title: string, name: string }) => {
+let activeImg = computed<any>(() => (item: { title: string, name: string,active:string }) => {
   let img: any;
   if (selectMod.value === item.title) {
-    img = active[item.name] + "_active";
+    img = item.active + "_active";
   } else {
-    img = active[item.name];
+    img = item.active;
   }
   return new URL("../assets/bottom/" + img + ".png", import.meta.url).href;
 });
@@ -46,27 +41,30 @@ let mod = reactive<Array<object>>([
   {
     title: "数据分析",
     image: new URL("../assets/bottom/fx-bottom_Data_analysis.png", import.meta.url).href,
-    name: "Data"
+    name: "Data",
+    active: "fx-bottom_Data_analysis"
   },
   {
     title: "人房管理",
     image: new URL("../assets/bottom/fx-bottom_Human_housing_management.png", import.meta.url).href,
-    name: "management"
+    name: "management",
+    active: "fx-bottom_Human_housing_management"
   },
   {
     title: "应急演练",
     image: new URL("../assets/bottom/fx-bottom_Emergency_drill.png", import.meta.url).href,
-    name: "drill"
+    name: "drill",
+    active: "fx-bottom_Emergency_drill"
   }
 ]);
 
 const store = useStore();
 
-let DPEmod: (mod: {title:string}) => any = function (mod: {title:string}): any {
+const DPEMod = (mod: any) => {
   if (selectMod.value === mod.title) {
     selectMod.value = "";
     emit('clickChild', selectMod.value);
-    store.setCurrentBottomSelected();
+    store.setCurrentBottomSelected('');
     return;
   }
   selectMod.value = mod.title;

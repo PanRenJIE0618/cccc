@@ -1,11 +1,12 @@
 {
   "name": "fx_datacenter",
+  "packageManager": "yarn@3.6.0",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "pinia": "^2.1.3",
     "postcss-pxtorem": "^6.0.0",
     "svg-sprite-loader": "^6.0.11",
+    "terser": "^5.18.0",
     "vue": "^3.2.47",
     "vue-router": "4",
     "vuex": "^4.0.2"

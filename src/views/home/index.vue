@@ -18,50 +18,19 @@
 <!--  </el-button>-->
 </template>
 <script setup lang="ts">
+import {ref, reactive, onMounted, onUnmounted, onUpdated} from "vue";
+import {useStore} from "../../store";
 import BottomToolbar from '../../components/bottom_toolbar.vue';
 import HMI from '../../components/hmi.vue';
 import LayerTree from '../../components/layer_tree.vue';
 import Tools from '../../components/tools.vue';
 import ViewPoint from '../../components/viewpoint.vue';
-import {ref, reactive, onMounted, onUnmounted, onUpdated} from "vue";
-import {useStore} from "../../store";
-import {getPositiondirection, getClickOnThePointCoordinates} from "../../utils/CommonTool.js";
+
+// import {getPositiondirection, getClickOnThePointCoordinates} from "../../utils/CommonTool.js";
 
 const store = useStore();
 let viewer = reactive<any>(null);
 let SelectMod = ref("");
-
-
-
-const getCurrentViewingAngleCoordinate = (viewer: any) => {
-  let position = getPositiondirection(viewer);
-  console.log(position);
-};
-const getClickOnThePointCoordinates = (viewer: any) => {
-  // getClickOnThePointCoordinates(viewer)
-  let scene = viewer.scene;
-  let screenSpaceEventHandler;
-  // screenSpaceEventHandler = screenSpaceEventHandler && screenSpaceEventHandler.destroy();
-  screenSpaceEventHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-  screenSpaceEventHandler.setInputAction(function (e) {
-    var earthPosition = viewer.scene.pickPosition(e.position);
-    console.log(earthPosition);
-    let cartographit = Cesium.Cartographic.fromCartesian(earthPosition);
-    let longitude = Cesium.Math.toDegrees(cartographit.longitude);
-    let latitude = Cesium.Math.toDegrees(cartographit.latitude);
-    console.log(longitude);
-    console.log(latitude);
-    // 获取选中的S3M图层
-    // let pick = viewer.scene.pick(e.position);
-    // console.log(pick);
-    // let selection = pick.primitive.getSelection();
-    // let selectedId = Number(selection[selection.length - 1]);
-    // console.log(selectedId);
-    // pick.primitive.removePBRMaterial(); // 默认选中偏移量
-    // pick.primitive.setObjsColor([selectedId],Cesium.Color.RED);
-    // pick.primitive.setSelection([selectedId]);
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-};
 
 const clickEven = (val: string) => {
   if (SelectMod.value === val) {

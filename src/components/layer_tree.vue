@@ -24,7 +24,7 @@ import underground from '../icons/svg/fx-icon_underground.svg?url';
 import Urban_construction from '../icons/svg/fx-icon_Urban_construction.svg?url';
 
 let data = reactive<Array<any>>(layer.layer);
-let list = reactive<object>(null)
+let list = reactive<object>({})
 let Box = ref(false)
 const mods = reactive<Array<any>>([
   {
