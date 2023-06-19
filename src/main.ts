@@ -1,7 +1,7 @@
 // @ts-ignore
 import {createApp} from 'vue';
 import './style.less';
-import App from './App.vue';
+import App from "./App.vue";
 // @ts-ignore
 import router from '../src/router';
 //引入 ElementPlus
@@ -15,7 +15,6 @@ import {createPinia} from "pinia";
 // @ts-ignore
 //引入flexible
 import 'amfe-flexible';
-
 
 const app = createApp(App);
 // app.config.globalProperties.$axios = axios();

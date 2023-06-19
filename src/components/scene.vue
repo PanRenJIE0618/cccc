@@ -2,30 +2,35 @@
 import {onMounted} from "vue";
 import {useStore} from "../store";
 
-const store = useStore()
+const store = useStore();
+
+const setMouseVisible = (visible) => {
+  let descriptor = {
+    "CommandStr": "SetShowMouseHidden",
+    "IsTrue": visible
+  };
+  emitUIInteraction(descriptor);
+};
 
 onMounted(() => {
-  load()
+  load();
   inputOptions.controlScheme = ControlSchemeType.HoveringMouse;
   inputOptions.fakeMouseWithTouches = true;
   /*registerLockedMouseEvents = function () {
   }*/
-  window.viewer = new SuperMap.Web.UI.Controls.SceneControl(document.getElementById("player"),)
-  window.scene = viewer.get_scene()
+  window.viewer = new SuperMap.Web.UI.Controls.SceneControl(document.getElementById("player"),);
+  window.scene = viewer.get_scene();
   // showKeyEnterPrise()
   // initialViewPoint()
   //添加UE的消息监听
 
+  setMouseVisible(false);
 
   addResponseEventListener('CurrentViewPoint', async (data) => {
     console.log(data);
-    store.setCurrentViewPoint(data)
-  })
-
-  setTimeout(() => {
-  }, 2000)
-
-})
+    store.setCurrentViewPoint(data);
+  });
+});
 </script>
 
 <template>

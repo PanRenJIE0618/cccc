@@ -1,40 +1,46 @@
 <script setup lang="ts">
-import {reactive, computed, ref} from "vue";
-import Maptools from "../utils/Maptool.cjs";
-
-let MapTool = new Maptools.Maptools();
+import {reactive, ref} from "vue";
+import {useTools} from "../hooks/useTools.ts";
 
 let reimage = (img) => {
   return new URL(`../assets/tools/${img}`, import.meta.url).href;
 };
 
-let MeasuringTool: (name: string) => void = function (name: string) {
-  let viewer = reactive<any>(window.viewer);
+const {measureDistance, measureArea, clear} = useTools();
+
+let MeasuringTool: (name: string) => void = function (name) {
   switch (name) {
     case "measurement" :
-      MapTool.measuringdistance(viewer);
+      measureDistance();
       break;
     case "translation" :
-      MapTool.clear(viewer);
+      console.log('weather');
+      let descriptor = {
+        "CommandStr": "WeatherTypeConversion",
+        "WeatherType": 3,
+        "Cloudiness": 1,
+        "MaterialWetness": 0.6,
+        "MaterialSnowCoverage": 1,
+        "OpenWeather": true,
+      };
+      emitUIInteraction(descriptor);
       break;
     case "area" :
-      MapTool.measuringArea(viewer);
+      measureArea();
       break;
     case "panorama" :
-      let position = reactive<object>({
-        longitude: -2873622.352663363,
-        latitude: 4691283.254669421,
-        height: 3294741.82575111
-      });
-      let Directional = reactive<object>({
-        heading: 6.134364052850659,
-        pitch: -1.5678400105732182,
-        roll: 0
-      });
-      MapTool.panorama(viewer, position, Directional);
       break;
     case "clear" :
-      MapTool.clear(viewer);
+      clear();
+      let descriptor1 = {
+        "CommandStr": "WeatherTypeConversion",
+        "WeatherType": 0,
+        "Cloudiness": 1,
+        "MaterialWetness": 0.6,
+        "MaterialSnowCoverage": 1,
+        "OpenWeather": true,
+      };
+      emitUIInteraction(descriptor1);
       break;
   }
 };

@@ -13,7 +13,7 @@
         <div class="fx-viewpoint_box_content_vp_t" v-for="(item,index) in ViewPointList.slice(start,end)" :key="item.id"
              @mouseenter="mouseenter(index)" @mouseleave="mouseleave"
              :style="{'backgroundImage':`url(${item.image})`,'background-repeat':'no-repeat'}">
-          <div class="fx-viewpoint_box_content_addViewPoint" v-if="index === (start)" @click="addViewPoint">
+          <div class="fx-viewpoint_box_content_addViewPoint" v-if="index === (start)" @click="addViewPoint(index)">
             <img src="../assets/viewpoint/fx-viewpoint_box_addViewPoint_icon.png" alt="">
             <span>新增视点</span>
           </div>
@@ -64,7 +64,7 @@ let end = ref(4);
 let mask = ref(-1);
 let viewer: any = {};
 const NameInput = ref();
-let viewpointBd: any = ref(new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
+let viewpointBd = ref(new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href);
 let viewpointBox = ref(false);
 
 let ViewPointList = ref<any>([
@@ -93,7 +93,6 @@ let OpenViewPoint: () => void = function () {
   let vws = new URL("../assets/viewpoint/fx-viewpoint_background_select.png", import.meta.url).href;
   viewpointBox.value = !viewpointBox.value;
   viewpointBox.value == true ? viewpointBd.value = vws : viewpointBd.value = vw;
-
 };
 //鼠标移入移出
 let mouseenter: (index: number) => void = function (index) {
@@ -115,7 +114,7 @@ let focusName: (cp: object, index: number) => void = function (cp, index) {
   });
 };
 //ViewPoint mod
-let edit: (cp: object) => string = function (cp: object): string {
+let edit: (cp: object) => void = function (cp) {
   console.log("编辑");
   console.log(cp);
   let promise = viewer.scene.outputSceneToFile();
@@ -142,11 +141,15 @@ let flight: (item: object) => void = function (item) {
 };
 let delViewPoint: (item: object) => void = function (item) {
   deleteViewPointById(item.id).then(() => {
+    ElMessage({
+      message: '删除视点成功',
+      type: 'success',
+    });
     refreshViewList();
   });
 };
 //关闭
-let closeView: () => string = function (): string {
+let closeView: () => void = function () {
   viewpointBox.value = false;
   viewpointBd.value = new URL("../assets/viewpoint/fx-ViewPoint_background.png", import.meta.url).href;
 };
@@ -169,7 +172,7 @@ let PageDown: () => string = function (): string {
 const store = useStore();
 
 //添加
-let addViewPoint: () => void = function () {
+let addViewPoint: (index: number) => void = function (index) {
   const descriptor = {
     "CommandStr": "GetPawnLocation",
     "IsTrue": "true"
@@ -178,7 +181,7 @@ let addViewPoint: () => void = function () {
   setTimeout(() => {
     const point = JSON.parse(store.currentViewPoint);
     saveViewPoint({
-      locationName: '视角',
+      locationName: `视角${ViewPointList.value.length}`,
       locationX: point.location.x,
       locationY: point.location.y,
       locationZ: point.location.z,
@@ -186,6 +189,10 @@ let addViewPoint: () => void = function () {
       rotaionHeading: point.rotation.yaw,
       rotationRoll: point.rotation.roll,
     }).then(() => {
+      ElMessage({
+        message: '添加视点成功',
+        type: "success"
+      });
       refreshViewList();
     });
     /*ViewPointList.push({
